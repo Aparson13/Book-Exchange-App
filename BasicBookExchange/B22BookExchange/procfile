@@ -1,1 +1,0 @@
-web: gunicorn B22BookExchange.wsgi
