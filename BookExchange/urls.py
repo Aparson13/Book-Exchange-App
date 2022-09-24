@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
    # path('', views.index, name='index'),
-    path('', include('myapp.urls')),
-    path('myapp/', include('myapp.urls')),
+    path('', include('mysite.urls')),
+    path('mysite/', include('mysite.urls')),
     path('admin/', admin.site.urls),
 ]
