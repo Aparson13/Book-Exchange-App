@@ -1,0 +1,13 @@
+{% load socialaccount %}
+<html>
+<body>
+    <h1>B-22 Book Exchange </h1>
+    {% if user.is_authenticated %}
+    <p>Welcome, You are logged in as {{ user.username }}</p>
+
+    {% else %}
+    <a href="{% provider_login_url 'google' %}">Login With Google</a>
+    {% endif %}
+    Hello, B-22 Book Exchange is online.
+</body>
+</html>
