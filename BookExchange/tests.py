@@ -1,3 +1,7 @@
 from django.test import TestCase
 
-# Create your tests here.
+class FirstTest(TestCase):
+    def testFour(self):
+        four = 2+2
+        tFour = (four == 4)
+        self.assertIs(tFour, True)
