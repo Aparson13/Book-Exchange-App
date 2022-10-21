@@ -12,3 +12,4 @@ django-bootstrap-v5
 django-heroku
 django-allauth
 djangorestframework
+importlib_metadata
