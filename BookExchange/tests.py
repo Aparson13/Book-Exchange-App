@@ -15,14 +15,14 @@ class BaseViewTest(APITestCase):
     client = APIClient()
 
     @staticmethod
-    def add_textbook(name="", author="", condition=""):
-        if name!= "" and author!= "" and condition!= "":
-            Textbooks.objects.create(name=name, author=author, condition=condition)
+    def add_textbook(name="", author="", condition="", price=0):
+        if name!= "" and author!= "" and condition!= "" and price!=-1:
+            Textbooks.objects.create(name=name, author=author, condition=condition, price=price)
 
     def setUp(self):
-        self.add_textbook("physics", "john", "good")
-        self.add_textbook("math", "sue", "poor")
-        self.add_textbook("english", "amy", "new")
+        self.add_textbook("physics", "john", "good", 20.50)
+        self.add_textbook("math", "sue", "poor", 18)
+        self.add_textbook("english", "amy", "new", 16)
 
 class GetAllTextbooksTest(BaseViewTest):
 
