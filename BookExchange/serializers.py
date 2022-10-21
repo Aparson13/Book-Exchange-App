@@ -5,3 +5,4 @@ class TextbooksSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Textbooks
 		fields = ("name", "author", "condition")
+	
