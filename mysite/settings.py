@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'bootstrap5',
-
-   
+    'rest_framework',
+    'BookExchange',
+    'bootstrap5',
 ]
 
 AUTH_USER_MODEL='BookExchange.User'
@@ -147,7 +148,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 4
+SITE_ID = 3
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 ACCOUNT_EMAIL_REQUIRED = True  

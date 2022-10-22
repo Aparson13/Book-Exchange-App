@@ -6,10 +6,17 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import UserManager, User, Profile, ProfileForms
+from django.shortcuts import render
+from django.urls import reverse
+
+from rest_framework import generics
+from django.views import generic
+from .models import Textbooks
+from .serializers import TextbooksSerializer
 
 def index(request):
     return HttpResponse("Hello, B-22 Book Exchange is online.")
-
+    
 class UserView(generic.ListView):
     model = User
     template_name = 'index.html'
@@ -35,24 +42,20 @@ def Profilesv(request):
     else:
         form = ProfileForms()
     return render(request, 'BookExchange/profile.html', {'form': form})
+    
+class ListTextbooksView(generics.ListAPIView):
+    queryset = Textbooks.objects.all()
+    serializer_class = TextbooksSerializer
 
+class SellTextbooksView(generic.ListView):
+    template_name = 'SellTextbooks.html'
+    model = Textbooks
 
-# @verified_email_required()
-# def home(request):
-#     usuario = Perfil.objects.filter(user=request.user)
-#     context = ({"usuario": usuario})
-#     return render(request, "explore/inicioapp.html", context)
+def SellTextbooksWrite(request):
+    nameR = request.POST.get('name')
+    authorR = request.POST.get('author')
+    conditionR = request.POST.get('condition')    
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR)
+    test.save()
+    return HttpResponseRedirect(reverse('textbooks-all'))
 
-# @verified_email_required()
-# def profile(request, id):
-#     instance = get_object_or_404(Perfil, id=id)
-#     form = ProfileForm(instance=instance)
-#     if request.method == "POST":
-#         form = ProfileForm(request.POST, instance=instance)
-#         if form.is_valid():
-#             perfil = form.save(commit=False)
-#             perfil.user = request.user
-#             perfil.save()
-#             return HttpResponseRedirect("/profile/")
-#     context = ({"form", form}, {"datos": instance})
-#     return render(request, "explore/profile.html", context)

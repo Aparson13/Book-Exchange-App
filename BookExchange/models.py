@@ -3,23 +3,15 @@ from django.contrib.auth.models import User #add this
 
 
 # Create your models here.
+
 from django.db import models
 from django import forms
 from django.forms import ModelForm
 from django.contrib import admin
 from django.dispatch import receiver #add this
 from django.db.models.signals import post_save #add this
-from django.contrib.auth.models import AbstractUser
 
-
-# class User(AbstractUser):
-# 	pass
-
-	
-
-
-from django.contrib.auth.models import AbstractBaseUser,    BaseUserManager, PermissionsMixin
-from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 
 
@@ -124,81 +116,10 @@ class ProfileForms(forms.ModelForm):
 			model = Profile
 			fields = ['last_name', 'first_name', 'major', 'year', 'location']
 
-
-
-
-# from django.db import models
-# from django.forms import ModelForm
-# from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-
-# class UserManager(BaseUserManager):
-#     def create_user(self, email, password=None):
-#         """
-#         Creates and saves a User with the given email
-#         """
-#         if not email:
-#             raise ValueError('Users must have an email address')
-
-#         user = self.model(
-#             email=UserManager.normalize_email(email),
-#         )
-#         user.set_password(password)
-#         user.save(using=self._db)
-#         return user
-
-#     def create_superuser(self, email, password):
-#         """
-#         Creates and saves a superuser with the given email, date of
-#         birth and password.
-#         """
-#         user = self.create_user(email,
-#             password=password
-#         )
-
-#         user.is_admin = True
-#         user.is_staff = True
-#         user.is_superuser = True
-#         user.save(using=self._db)
-#         return user
-
-
-
-# class User(AbstractBaseUser):
-#     objects = UserManager()
-#     date_added = models.DateField(auto_now=False, auto_now_add=True)
-#     email = models.EmailField(unique=True, db_index=True)
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = []
-
-#     def __unicode__(self):
-#         return self.email
-
-#     is_active = models.BooleanField(default=True)
-#     is_admin = models.BooleanField(default=False)
-
-#     def get_full_name(self):
-#     # The user is identified by their email address
-#         return self.email
-
-#     def get_short_name(self):
-#     # The user is identified by their email address
-#         return self.email
-
-#     # On Python 3: def __str__(self):
-#     def __unicode__(self):
-#         return self.email
-
-#     def has_perm(self, perm, obj=None):
-
-#     # Simplest possible answer: Yes, always
-#         return True
-
-#     def has_module_perms(self, app_label):
-
-#     # Simplest possible answer: Yes, always
-#         return True
-
-#     def is_staff(self):
-
-#     # Simplest possible answer: All admins are staff
-#         return self.is_admin   
+class Textbooks(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    author = models.CharField(max_length=255, null=False)
+    condition = models.CharField(max_length=255, null=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0)
+    def __str__(self):
+        return "{} - {} - {}".format(self.name, self.author, self.condition, self.price)
