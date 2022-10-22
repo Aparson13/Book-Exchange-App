@@ -1,0 +1,14 @@
+
+<html>
+    <head>
+        <title>API Display</title>
+    </head>
+    <body>
+        {% comment %} Integrating Luther's/SIS Api {% endcomment %}
+        <h1>List of Professors</h1>
+        <h2>Attention! Please refer to your professor's syllabus to make sure you get the correct textbooks. Thank you!</h2>
+        {% for i in response %}
+                <br>Instructor Name: {{i.instructor.name}}, Course: {{i.description}}, Class Number: {{i.course_number}}</br>
+        {% endfor %}
+    </body>
+    </html>

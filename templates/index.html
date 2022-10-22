@@ -1,13 +1,63 @@
 {% load socialaccount %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+{% load static %}
+
 <html>
 <body>
     <h1>B-22 Book Exchange </h1>
-    {% if user.is_authenticated %}
-    <p>Welcome, You are logged in as {{ user.username }}</p>
 
-    {% else %}
-    <a href="{% provider_login_url 'google' %}">Login With Google</a>
-    {% endif %}
-    Hello, B-22 Book Exchange is online.
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sell/">Sell a Textbook</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/textbooks/">List of Textbooks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/professors/">Professors</a>
+                    </li>
+                    
+		    <li class="nav-item">
+			<a class="nav-link" href="/profile">Edit Profile</a>
+		    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <center>
+        <br /><br />
+        {% if user.is_authenticated %}
+        <h1>Welcome, You are logged in as {{ user.username }}</h1>
+
+        {% else %}
+        <a href="{% provider_login_url 'google' %}">Login With Google</a>
+        {% endif %}
+        <br /><br />
+        Hello, B-22 Book Exchange is online.
+        <br /><br /><br />
+
+        <br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <footer>
+            <p>Author: B-22</p>
+        </footer>
+    </center>
+
 </body>
 </html>
