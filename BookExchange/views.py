@@ -7,6 +7,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import UserManager, User, Profile, ProfileForms
 from django.shortcuts import render
+import requests
 from django.urls import reverse
 
 from rest_framework import generics
@@ -17,6 +18,11 @@ from .serializers import TextbooksSerializer
 def index(request):
     return HttpResponse("Hello, B-22 Book Exchange is online.")
     
+#this is the professor view
+def professors(request):
+    response= requests.get('http://luthers-list.herokuapp.com/api/dept/CS/?format=json').json()
+    return render(request,'professors.html',{'response':response})
+
 class UserView(generic.ListView):
     model = User
     template_name = 'index.html'

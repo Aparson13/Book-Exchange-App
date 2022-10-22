@@ -17,5 +17,6 @@ urlpatterns = [
    path('logout', LogoutView.as_view()),
    path('textbooks/', ListTextbooksView.as_view(), name="textbooks-all"),
    path('write/', SellTextbooksWrite, name="write-textbooks"),
-   path('sell/', SellTextbooksView.as_view(), name="sell-textbooks")
+   path('sell/', SellTextbooksView.as_view(), name="sell-textbooks"),
+   path('professors/', views.professors, name = 'professors')
 ]
