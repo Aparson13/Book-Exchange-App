@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'bootstrap5',
 ]
 
+AUTH_USER_MODEL='BookExchange.User'
+AUTH_PROFILE_MODULE = 'BookExchange.Profile'
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
