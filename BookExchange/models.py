@@ -1,7 +1,4 @@
 
-from django.contrib.auth.models import User #add this
-
-
 # Create your models here.
 
 from django.db import models
@@ -10,6 +7,10 @@ from django.forms import ModelForm
 from django.contrib import admin
 from django.dispatch import receiver #add this
 from django.db.models.signals import post_save #add this
+from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
+from decimal import Decimal
+from django.contrib.auth.models import User #add this
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
@@ -120,6 +121,9 @@ class Textbooks(models.Model):
     name = models.CharField(max_length=255, null=False)
     author = models.CharField(max_length=255, null=False)
     condition = models.CharField(max_length=255, null=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0, validators=[MinValueValidator(Decimal(0.00))]) 
+    def negCheck(price):
+        if (price < 0):
+            raise ValidationError('Cannot enter a negative value.')
     def __str__(self):
         return "{} - {} - {}".format(self.name, self.author, self.condition, self.price)
