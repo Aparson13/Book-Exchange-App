@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'book-exchange2022.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'BookExchange.apps.BookexchangeConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
