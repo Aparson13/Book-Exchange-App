@@ -140,6 +140,18 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SITE_ID = 3
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+ACCOUNT_EMAIL_REQUIRED = True  
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# 1 day
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
+  
+#or any other page
+ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/' 
+  
+# redirects to profile page if not configured.
 
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'

@@ -18,14 +18,13 @@ from django.utils import timezone
 
 class UserManager(BaseUserManager):
 
-  def _create_user(self, email, username, password, is_staff, is_superuser, **extra_fields):
+  def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
     if not email:
         raise ValueError('Users must have an email address')
     now = timezone.now()
     email = self.normalize_email(email)
     user = self.model(
         email=email,
-		username=username,
         is_staff=is_staff, 
         is_active=True,
         is_superuser=is_superuser, 
@@ -37,41 +36,33 @@ class UserManager(BaseUserManager):
     user.save(using=self._db)
     return user
 
-  def create_user(self, email, username, password, **extra_fields):
-    return self._create_user(email, username, password, False, False, **extra_fields)
+  def create_user(self, email, password, **extra_fields):
+    return self._create_user(email, password, False, False, **extra_fields)
 
-  def create_superuser(self, email, username, password, **extra_fields):
-    if not email:
-        raise ValueError('Users must have an email address')
-
-    self.username = username
-    self.set_password(password)
-    self.is_superuser = True
-    self.is_staff = True
-    self.active = True
-    self.save(using=self._db)
-    return self
-
+  def create_superuser(self, email, password, **extra_fields):
+    user=self._create_user(email, password, True, True, **extra_fields)
+    user.save(using=self._db)
+    return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-	email = models.EmailField(max_length=254, unique=True)
-	name = models.CharField(max_length=254, null=True, blank=True)
-	username = models.CharField(max_length=254, unique=True, default=name)
-	is_staff = models.BooleanField(default=False)
-	is_superuser = models.BooleanField(default=False)
-	is_active = models.BooleanField(default=True)
-	last_login = models.DateTimeField(null=True, blank=True)
-	date_joined = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(max_length=254, unique=True)
+    name = models.CharField(max_length=254, null=True, blank=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    last_login = models.DateTimeField(null=True, blank=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    
 
-	USERNAME_FIELD = 'username'
-	EMAIL_FIELD = 'email'
-	REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-	objects = UserManager()
+    objects = UserManager()
 
-	def get_absolute_url(self):
-		return "/users/%i/" % (self.pk)
+    def get_absolute_url(self):
+        return "/users/%i/" % (self.pk)
 
 class Profile(models.Model):
 	username = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
