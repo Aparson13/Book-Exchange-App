@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'book-exchange2022.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'BookExchange.apps.BookexchangeConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,7 +43,14 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'bootstrap5',
+
+   
 ]
+
+AUTH_USER_MODEL='BookExchange.User'
+AUTH_PROFILE_MODULE = 'BookExchange.Profile'
+# Originally 'accounts.Profile'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -139,7 +147,16 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 3
+SITE_ID = 4
 
-LOGIN_REDIRECT_URL = '/login'
-LOGOUT_REDIRECT_URL = '/logout'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+ACCOUNT_EMAIL_REQUIRED = True  
+# 1 day
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 
+  
+#or any other page
+ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/' 
+  
+# redirects to profile page if not configured.
+LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
