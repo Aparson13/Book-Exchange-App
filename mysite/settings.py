@@ -145,7 +145,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 3
+SITE_ID = 2
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 ACCOUNT_EMAIL_REQUIRED = True  
 ACCOUNT_USERNAME_REQUIRED = True
