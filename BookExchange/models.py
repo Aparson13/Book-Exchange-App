@@ -23,8 +23,8 @@ class UserManager(BaseUserManager):
     now = timezone.now()
     email = self.normalize_email(email)
     user = self.model(
-        username=username,
-        email=email,
+    username=username,
+    email=email,
         is_staff=is_staff, 
         is_active=True,
         is_superuser=is_superuser, 
