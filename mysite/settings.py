@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'bootstrap5',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL='BookExchange.User'
