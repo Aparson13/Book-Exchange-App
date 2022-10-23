@@ -5,7 +5,7 @@ from django.contrib.auth.views import LogoutView
 from .views import ListTextbooksView
 from .views import SellTextbooksView
 from .views import SellTextbooksWrite
-from .view import Profile
+from .views import Profile
 
 
 
