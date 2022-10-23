@@ -60,8 +60,12 @@ class SellTextbooksView(generic.ListView):
 def SellTextbooksWrite(request):
     nameR = request.POST.get('name')
     authorR = request.POST.get('author')
-    conditionR = request.POST.get('condition')    
-    test = Textbooks(name = nameR, author = authorR, condition = conditionR)
+    conditionR = request.POST.get('condition') 
+    if request.user.is_authenticated:
+        current_user = request.user
+    else:
+        current_user = "anonymous"
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR, creator = current_user)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-all'))
 
