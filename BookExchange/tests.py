@@ -54,4 +54,4 @@ class UserTest(TestCase):
         self.user = User.objects.create_user(username='paul', email='testuser@gmail.com', password='12345678')
         self.client.login(username='paul', email='testuser@gmail.com', password='12345678')
         TRUE = 1
-        self.assertTrue(TRUE)
+        self.assertTrue(TRUE) ##JUST CHECKING TO MAKE SURE A USER IS CREATED WITHOUT ERROR##

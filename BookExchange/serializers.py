@@ -4,5 +4,5 @@ from .models import Textbooks
 class TextbooksSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Textbooks
-		fields = ("name", "author", "condition", "creator")
+		fields = ("name", "author", "condition", "creator", "price")
 	
