@@ -15,7 +15,6 @@ from django.contrib.auth.models import User #add this
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 
-
 class UserManager(BaseUserManager):
 
   def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
@@ -113,9 +112,10 @@ class Textbooks(models.Model):
     name = models.CharField(max_length=255, null=False)
     author = models.CharField(max_length=255, null=False)
     condition = models.CharField(max_length=255, null=False)
+    creator = models.CharField(max_length=255, null=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, default = 0, validators=[MinValueValidator(Decimal(0.00))]) 
     def negCheck(price):
         if (price < 0):
             raise ValidationError('Cannot enter a negative value.')
     def __str__(self):
-        return "{} - {} - {}".format(self.name, self.author, self.condition, self.price)
+        return "{} - {} - {}".format(self.name, self.author, self.condition, self.price, self.creator)
