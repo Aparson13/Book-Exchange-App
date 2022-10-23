@@ -60,8 +60,9 @@ class SellTextbooksView(generic.ListView):
 def SellTextbooksWrite(request):
     nameR = request.POST.get('name')
     authorR = request.POST.get('author')
-    conditionR = request.POST.get('condition')    
-    test = Textbooks(name = nameR, author = authorR, condition = conditionR)
+    conditionR = request.POST.get('condition') 
+    priceR = request.POST.get('price')   
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-all'))
 
