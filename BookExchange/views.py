@@ -49,9 +49,13 @@ def Profilesv(request):
         form = ProfileForms()
     return render(request, 'BookExchange/profile.html', {'form': form})
     
-class ListTextbooksView(generics.ListAPIView):
-    queryset = Textbooks.objects.all()
-    serializer_class = TextbooksSerializer
+#class ListTextbooksView(generics.ListAPIView):
+    #queryset = Textbooks.objects.all()
+    #serializer_class = TextbooksSerializer
+
+def deepthoughtsList(request):
+    deepthought_list = deepthought.objects.all()
+    return render(request, 'polls/deepthoughtsList.html',{'deepthought_list': deepthought_list})
 
 class SellTextbooksView(generic.ListView):
     template_name = 'SellTextbooks.html'
