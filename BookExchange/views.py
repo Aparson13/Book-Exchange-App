@@ -53,9 +53,9 @@ def Profilesv(request):
     #queryset = Textbooks.objects.all()
     #serializer_class = TextbooksSerializer
 
-def deepthoughtsList(request):
-    deepthought_list = deepthought.objects.all()
-    return render(request, 'polls/deepthoughtsList.html',{'deepthought_list': deepthought_list})
+def SellTextbooksList(request):
+    textbook_list = Textbooks.objects.all()
+    return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
 
 class SellTextbooksView(generic.ListView):
     template_name = 'SellTextbooks.html'

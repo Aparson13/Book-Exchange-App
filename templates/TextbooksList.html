@@ -34,41 +34,53 @@
         </div>
     </div>
 </nav>
-
 <center>
     <br />
-    <h1>List a textbook!!</h1>
-
+    <h1>Textbooks</h1>
     <br /> <br />
-
-    <form action="/write/" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <b>Title</b>
+            </div>
+            <div class="col-sm">
+                <b>Author</b>
+            </div>
+            <div class="col-sm">
+                <b>Condition</b>
+            </div>
+            <div class="col-sm">
+                <b>Listed by</b>
+            </div>
+            <div class="col-sm">
+                <b>Price</b>
+            </div>
+        </div>
+        {% for textbook in textbook_list %}
+        <div class="row">
+            <div class="col-sm">
+                {{ textbook.name }}
+            </div>
+            <div class="col-sm">
+                {{ textbook.author }}
+            </div>
+            <div class="col-sm">
+                {{ textbook.condition }}
+            </div>
+            <div class="col-sm">
+                {{ textbook.creator }}
+            </div>
+            <div class="col-sm">
+                {{ textbook.price }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br />
+    <form action="/sell/">
         {%csrf_token %}
-
-
-        Name:<br> <input type="text" name="name">
-        <br> <br />
-        Author:<br> <input type="text" name="author">
-        <br> <br />
-        Condition:<br> <input type="text" name="condition">
-       
-        <br> <br />
-        Price:<br> <input type="number" step="0.01" min="0" name="price">
-        <br /> <br /> 
         {% buttons %}
-        <input type="submit" value="Submit">
-        {% endbuttons %}
-
-    </form>
-    <br />
-    <br />
-    <br />
-    <br />
-
-
-    <form action="/list/">
-        {%csrf_token %}
-        {% buttons %}
-        <input type="submit" value="See current listings!">
+        <input type="submit" value="List another textbook!">
         {% endbuttons %}
 
     </form>
@@ -79,12 +91,8 @@
         {% endbuttons %}
 
     </form>
-
     <br />
-
-
     <footer>
         <<p>Author: B-22</p>
     </footer>
-
 </center>
