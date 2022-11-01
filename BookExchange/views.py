@@ -53,6 +53,10 @@ class ListTextbooksView(generics.ListAPIView):
     queryset = Textbooks.objects.all()
     serializer_class = TextbooksSerializer
 
+def SellTextbooksList(request):
+    textbook_list = Textbooks.objects.all()
+    return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
+
 class SellTextbooksView(generic.ListView):
     template_name = 'SellTextbooks.html'
     model = Textbooks
@@ -68,5 +72,5 @@ def SellTextbooksWrite(request):
         current_user = "anonymous"
     test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user)
     test.save()
-    return HttpResponseRedirect(reverse('textbooks-all'))
+    return HttpResponseRedirect(reverse('textbooks-list'))
 

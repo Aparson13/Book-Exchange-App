@@ -4,6 +4,7 @@
 {% bootstrap_messages %}
 {% load static %}
 
+<h1>B-22 Book Exchange </h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -19,7 +20,7 @@
                     <a class="nav-link" href="/sell/">Sell a Textbook</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/textbooks/">List of Textbooks</a>
+                    <a class="nav-link" href="/list/">List of Textbooks</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/professors/">Professors</a>
@@ -64,7 +65,7 @@
     <br />
 
 
-    <form action="/textbooks/">
+    <form action="/list/">
         {%csrf_token %}
         {% buttons %}
         <input type="submit" value="See current listings!">
