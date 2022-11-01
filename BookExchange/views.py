@@ -49,9 +49,9 @@ def Profilesv(request):
         form = ProfileForms()
     return render(request, 'BookExchange/profile.html', {'form': form})
     
-#class ListTextbooksView(generics.ListAPIView):
-    #queryset = Textbooks.objects.all()
-    #serializer_class = TextbooksSerializer
+class ListTextbooksView(generics.ListAPIView):
+    queryset = Textbooks.objects.all()
+    serializer_class = TextbooksSerializer
 
 def SellTextbooksList(request):
     textbook_list = Textbooks.objects.all()
