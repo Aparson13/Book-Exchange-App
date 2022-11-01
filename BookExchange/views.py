@@ -72,5 +72,5 @@ def SellTextbooksWrite(request):
         current_user = "anonymous"
     test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user)
     test.save()
-    return HttpResponseRedirect(reverse('textbooks-all'))
+    return HttpResponseRedirect(reverse('textbooks-list'))
 
