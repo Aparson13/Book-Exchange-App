@@ -3,8 +3,17 @@
 {% bootstrap_javascript %}
 {% bootstrap_messages %}
 {% load static %}
+{% load socialaccount %}
 
-<h1>B-22 Book Exchange </h1>
+<h1>
+    B-22 Book Exchange
+    {% if user.is_authenticated %}
+    <h5>     Welcome, You are logged in as {{ user.username }}</h5>
+
+    {% else %}
+
+    {% endif %}
+</h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -29,6 +38,29 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Edit Profile</a>
                 </li>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
+                </li>
 
             </ul>
         </div>
@@ -39,30 +71,27 @@
     <br />
     <h1>List a textbook!!</h1>
 
-    <br /> <br />
+    <br />
 
     <form action="/write/" method="post">
         {%csrf_token %}
 
-
         Name:<br> <input type="text" name="name">
-        <br> <br />
+        <br>
         Author:<br> <input type="text" name="author">
-        <br> <br />
+        <br>
         Condition:<br> <input type="text" name="condition">
-       
-        <br> <br />
+
+        <br>
         Price:<br> <input type="number" step="0.01" min="0" name="price">
-        <br /> <br /> 
+        <br />  <br />
         {% buttons %}
         <input type="submit" value="Submit">
         {% endbuttons %}
 
     </form>
     <br />
-    <br />
-    <br />
-    <br />
+
 
 
     <form action="/list/">
@@ -84,7 +113,7 @@
 
 
     <footer>
-        <<p>Author: B-22</p>
+        <p>Author: B-22</p>
     </footer>
 
 </center>

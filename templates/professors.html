@@ -4,8 +4,17 @@
 {% bootstrap_messages %}
 {% load static %}
 
-<html>
-<h1>B-22 Book Exchange </h1>
+{% load socialaccount %}
+
+<h1>
+    B-22 Book Exchange
+    {% if user.is_authenticated %}
+    <h5>     Welcome, You are logged in as {{ user.username }}</h5>
+
+    {% else %}
+
+    {% endif %}
+</h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -30,11 +39,34 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Edit Profile</a>
                 </li>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <button class="btn float-right" disabled>&nbsp;</button>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
+                </li>
 
             </ul>
         </div>
     </div>
 </nav>
+
 <head>
     <title>API Display</title>
 </head>
@@ -46,4 +78,4 @@
     <br>Instructor Name: {{i.instructor.name}}, Course: {{i.description}}, Class Number: {{i.course_number}}</br>
     {% endfor %}
 </body>
-</html>
+
