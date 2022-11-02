@@ -7,9 +7,11 @@
 {% load socialaccount %}
 
 <link rel="stylesheet" href="{% static 'BookExchange/style.css' %}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 <h1>
-  
+
     {% if user.is_authenticated %}
     <h5>     Welcome, You are logged in as {{ user.username }}</h5>
 
