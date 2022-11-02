@@ -5,16 +5,29 @@
 {% bootstrap_messages %}
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'BookExchange/style.css' %}">
+
 <html>
-<body>
-    <h1>B-22 Book Exchange </h1>
+
+    <h1>
+        {% if user.is_authenticated %}
+        <h5>     Welcome, You are logged in as {{ user.username }}</h5>
+
+        {% else %}
+
+        {% endif %}
+    </h1>
 
 
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">
+                <div class="logo-image">
+                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png' class="img-fluid">
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,28 +49,54 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">Edit Profile</a>
                     </li>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <button class="btn float-right" disabled>&nbsp;</button>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
+                    </li>
 
                 </ul>
             </div>
         </div>
     </nav>
-    <center>
-        <br /><br />
-        {% if user.is_authenticated %}
-        <h1>Welcome, You are logged in as {{ user.username }}</h1>
+    <body>
+        <div id="backgroundimage">
+            <center>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                   <div class="OutlineText">
+                     <h1 style=font-size:100px;color:MediumSeaGreen>Textbook Exchange </h1>
+                   </div>
+            </center>
+        </div>
+        <center>
+            <br /><br />
 
-        {% else %}
-        <a href="{% provider_login_url 'google' %}">Login With Google</a>
-        {% endif %}
-        <br /><br />
-        Hello, B-22 Book Exchange is online.
-        <br /><br /><br />
 
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <footer>
-            <p>Author: B-22</p>
-        </footer>
-    </center>
+            <br /><br /><br />
 
-</body>
+            <br /><br /><br /><br /><br /><br /><br /><br />
+            <br /><br /><br /><br /><br /><br /><br /><br />
+            <footer>
+                <p>Author: B-22</p>
+            </footer>
+        </center>
+
+    </body>
 </html>
