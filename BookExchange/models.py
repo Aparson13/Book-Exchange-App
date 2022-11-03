@@ -11,7 +11,7 @@ from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from decimal import Decimal
 from django.contrib.auth.models import User #add this
-
+from django.db.models import Avg, Count
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 
@@ -55,6 +55,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     
+    def averageReview(self):
+        reviews = Rating.objects.filter(User=self, status=True).aggregate(average=Avg('rating'))
+        avg = 0
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        return avg
+
+    def countReview(self):
+        reviews = Rating.objects.filter(User=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count   
 
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
@@ -66,48 +79,41 @@ class User(AbstractBaseUser, PermissionsMixin):
         return "/users/%i/" % (self.pk)
 
 class Profile(models.Model):
-	username = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
-#OneToOne
-	# @receiver(post_save, sender=User) #add this
-	# def create_user_profile(sender, instance, created, **kwargs):
-	# 	if created:
-	# 		Profile.objects.create(username=instance)
+    username = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
 
-	# @receiver(post_save, sender=User) #add this
-	# def create_profile(sender, instance, created, **kwargs):
-	# 	user = instance
-	# 	if created:
-	# 		profile = Profile(username=user)
-	# 		profile.save() 
+    LOCATION_OPTIONS = (
+    ("On", "On Grounds"),
+    ("Off", "Off Grounds"),
+    )
+    YEAR_OPTIONS = (
+    ("1", "1st year"),
+    ("2", "2nd year"),
+    ("3", "3rd year"),
+    ("4", "4th year"),
+    )
+    year = models.CharField(max_length=15, choices=YEAR_OPTIONS, default=YEAR_OPTIONS[0][1])
+    location = models.CharField(max_length=15, choices=LOCATION_OPTIONS, default=LOCATION_OPTIONS[0][1])
+    last_name = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    major = models.CharField(max_length=200)
 
-
-	LOCATION_OPTIONS = (
- 	("On", "On Grounds"),
- 	("Off", "Off Grounds"),
- 	)
-	YEAR_OPTIONS = (
-	("1", "1st year"),
-	("2", "2nd year"),
- 	("3", "3rd year"),
- 	("4", "4th year"),
- 	)
-	year = models.CharField(max_length=15, choices=YEAR_OPTIONS, default=YEAR_OPTIONS[0][1])
-	location = models.CharField(max_length=15, choices=LOCATION_OPTIONS, default=LOCATION_OPTIONS[0][1])
-	last_name = models.CharField(max_length=200)
-	first_name = models.CharField(max_length=200)
-	major = models.CharField(max_length=200)
-
-	def __str__(self):
-		return str(self.user)
+    def __str__(self):
+        return str(self.user)
 
 # Add Location (as multiple choice and make a default rating
-	def __str__(self):
-		return self.year
+    def __str__(self):
+        return self.year
 
 class ProfileForms(forms.ModelForm):
-	class Meta:
-			model = Profile
-			fields = ['last_name', 'first_name', 'major', 'year', 'location']
+    class Meta:
+        model = Profile
+        fields = ['last_name', 'first_name', 'major', 'year', 'location']
+
+class Rating(models.Model):
+    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.FloatField()
+    status = models.BooleanField(default=True)
+
 
 class Textbooks(models.Model):
     name = models.CharField(max_length=255, null=False)
@@ -119,4 +125,4 @@ class Textbooks(models.Model):
         if (price < 0):
             raise ValidationError('Cannot enter a negative value.')
     def __str__(self):
-        return "{} - {} - {}".format(self.name, self.author, self.condition, self.price, self.creator)
+        return "{} - {} - {}".format(self.author, self.condition, self.price, self.creator,selfUser = models.ForeignKey(User, on_delete=models.CASCADE).name)

@@ -4,7 +4,7 @@ from .models import Textbooks
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import User, Profile
+from .models import User, Profile, Rating
 
 
 class UserAdmin(BaseUserAdmin):
@@ -44,5 +44,5 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Textbooks)
-
+admin.site.register(Rating)
 # Register your models here.
