@@ -70,11 +70,19 @@
 					<button class="btn float-right" disabled>&nbsp;</button>
 					<button class="btn float-right" disabled>&nbsp;</button>
 					<button class="btn float-right" disabled>&nbsp;</button>
-					<button class="btn float-right" disabled>&nbsp;</button>
+
 					<li class="nav-item">
 						<a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
-					</li>
 
+					</li>
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/logout"><span style="color:darkred;"><b>Logout</b></span></a>
+
+						{% else %}
+
+						{% endif %}
+					</li>
 				</ul>
 			</div>
 		</div>

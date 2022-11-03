@@ -9,6 +9,12 @@ from .models import UserManager, User, Profile, ProfileForms
 from django.shortcuts import render
 import requests
 from django.urls import reverse
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 from rest_framework import generics
 from django.views import generic
@@ -31,6 +37,10 @@ class ProfileView(generic.ListView):
     model = Profile
     model = Rating
     template_name = 'userprofile.html'
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
     
 
 def Profilesv(request):
