@@ -6,7 +6,7 @@ from .views import SellTextbooksView
 from .views import SellTextbooksWrite
 from .views import SellTextbooksList
 from .views import ListTextbooksView
-from .views import Profile
+from .views import Profile, ProfileView
 
 
 
@@ -21,5 +21,6 @@ urlpatterns = [
    path('write/', SellTextbooksWrite, name="write-textbooks"),
    path('sell/', SellTextbooksView.as_view(), name="sell-textbooks"),
    path('list/', SellTextbooksList, name="textbooks-list"),
-   path('professors/', views.professors, name = 'professors')
+   path('professors/', views.professors, name = 'professors'),
+   path('userprofile', ProfileView.as_view(template_name='userprofile.html'))
 ]

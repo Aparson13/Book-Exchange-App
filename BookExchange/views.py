@@ -12,7 +12,7 @@ from django.urls import reverse
 
 from rest_framework import generics
 from django.views import generic
-from .models import Textbooks
+from .models import Textbooks, Rating
 from .serializers import TextbooksSerializer
 
 def index(request):
@@ -29,7 +29,8 @@ class UserView(generic.ListView):
 
 class ProfileView(generic.ListView):
     model = Profile
-    template_name = 'profile.html'
+    model = Rating
+    template_name = 'userprofile.html'
     
 
 def Profilesv(request):
