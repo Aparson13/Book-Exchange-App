@@ -108,6 +108,14 @@
         {% endfor %}
     </div>
     <br />
+    
+    <form action="/filter/">
+        {%csrf_token %}
+        {% buttons %}
+        <input type="submit" value="Apply Filters">
+        {% endbuttons %}
+
+    </form>
     <form action="/sell/">
         {%csrf_token %}
         {% buttons %}
