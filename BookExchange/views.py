@@ -75,7 +75,7 @@ class SellTextbooksView(generic.ListView):
 def SellTextbooksWrite(request):
     nameR = request.POST.get('name')
     authorR = request.POST.get('author')
-    conditionR = request.POST.get('condition') 
+    conditionR = request.POST.get('inCondition') 
     priceR = request.POST.get('price')
     if request.user.is_authenticated:
         current_user = request.user
@@ -84,4 +84,31 @@ def SellTextbooksWrite(request):
     test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
+
+class FilterView(generic.ListView):
+    template_name = 'Filters.html'
+    model = Textbooks
+
+def ApplyFilters(request):
+    qset = Textbooks.objects.all()
+    nTitle = request.GET.get('inName')
+    nAuthor = request.GET.get('inAuthor')
+    nCondition = request.GET.get('inCondition')
+    nPrice = request.GET.get('inPrice')
+    if nTitle  != '' and nTitle is not None:
+        qset = qset.filter(name__icontains = nTitle)
+    if nAuthor  != '' and nAuthor is not None:
+        qset = qset.filter(author__icontains = nAuthor)
+    if nCondition  != '' and nCondition is not None:
+        qset = qset.filter(condition__icontains = nCondition)
+    if nPrice == '0-50' and nPrice is not None:
+        qset = qset.filter(price__range=(0,50))
+    elif nPrice == '50.01-100' and nPrice is not None:
+        qset = qset.filter(price__range=(50.01,100))
+    elif nPrice == '100+' and nPrice is not None:
+        qset = qset.filter(price__min=(100.01))
+    adjusted = {
+        'queryset': qset
+    }
+    return render(request, "AppliedFilters.html", adjusted)
 
