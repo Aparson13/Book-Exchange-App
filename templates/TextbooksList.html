@@ -70,8 +70,8 @@
     <h1>Textbooks</h1>
     <br /> <br />
     <div>
-        <div class="row">
-            <div class="col-sm">
+        <div style="background-color: #f5ae6c;"  class="row py-4">
+            <div class="col-sm ms-3">
                 <b>Title</b>
             </div>
             <div class="col-sm">
@@ -86,25 +86,50 @@
             <div class="col-sm">
                 <b>Price</b>
             </div>
+            <div class="col-sm">
+                <b>Class</b>
+            </div>
         </div>
         {% for textbook in textbook_list %}
-        <div class="row">
-            <div class="col-sm">
-                {{ textbook.name }}
+        <form action="/update-classroom/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div style="background-color: #fdddbf;" class="row py-4">
+                <div class="col-sm d-flex ms-3">
+                    <div style="height: 40px;" class="rounded bg-danger bg-gradient text-white py-2 px-3 d-flex flex-row align-items-center">{{ textbook.likes }}</div>
+                    <input class="border-0 bg-transparent text-black form-control shadow-none" readonly type="text" name="name" value="{{textbook.name}}" />
+                </div>
+                <div class="col-sm mt-2">
+                    <input class="border-0 text-center bg-transparent text-black form-control shadow-none" readonly type="text" name="author" value="{{textbook.author}}" />
+                    <!-- {{ textbook.author }} -->
+                </div>
+                <div class="col-sm mt-2">
+                    <input class="border-0 text-center bg-transparent text-black form-control shadow-none" readonly type="text" name="condition" value="{{textbook.condition}}" />
+                    <!-- {{ textbook.condition }} -->
+                </div>
+                <div class="col-sm mt-2">
+                    <input class="border-0 text-center bg-transparent text-black form-control shadow-none" readonly type="text" name="creator" value="{{textbook.creator}}" />
+                    <!-- {{ textbook.creator }} -->
+                </div>
+                <div class="col-sm mt-2">
+                    <input class="border-0 text-center bg-transparent text-black form-control shadow-none" readonly type="text" name="price" value="{{textbook.price}}" />
+                    <!-- {{ textbook.price }} -->
+                </div>
+                <div class="col-sm mt-2">
+                    {% if textbook.classroom %}
+                        <div class="d-flex flex-row justify-content-between me-3">
+                            {{ textbook.classroom }}
+                            <input class="border-0 rounded bg-info px-2 py-1 text-white" type="submit" name="add_like" value = "Like" />
+                        </div>
+                    {% else %}
+                        <div class="d-flex me-3">
+                            <input type="text" name="classroom" placeholder="Add Classroom" />
+                            <input type="submit" value="+" />
+                        </div>
+                    {% endif %}
+                    </div>
             </div>
-            <div class="col-sm">
-                {{ textbook.author }}
-            </div>
-            <div class="col-sm">
-                {{ textbook.condition }}
-            </div>
-            <div class="col-sm">
-                {{ textbook.creator }}
-            </div>
-            <div class="col-sm">
-                {{ textbook.price }}
-            </div>
-        </div>
+        </form>
         {% endfor %}
     </div>
     <br />

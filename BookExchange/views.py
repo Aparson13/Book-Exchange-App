@@ -65,6 +65,9 @@ class ListTextbooksView(generics.ListAPIView):
     serializer_class = TextbooksSerializer
 
 def SellTextbooksList(request):
+    
+    # if request.method == 'POST':
+    #     print("Posted")
     textbook_list = Textbooks.objects.all()
     return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
 
@@ -82,6 +85,27 @@ def SellTextbooksWrite(request):
     else:
         current_user = "anonymous"
     test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user)
+    test.save()
+    return HttpResponseRedirect(reverse('textbooks-list'))
+
+def UpdateClassroom(request):
+    name = request.POST.get('name')
+    author = request.POST.get('author')
+    condition = request.POST.get('condition') 
+    price = request.POST.get('price')
+    creator = request.POST.get('creator')
+    classroom = request.POST.get('classroom')
+
+    test = Textbooks.objects.get(name = name, author = author)
+    if 'add_like' in request.POST:
+        print("Liked")
+        test.likes += 1
+    else:
+        if (classroom == None or classroom == ""):
+            return HttpResponseRedirect(reverse('textbooks-list'))
+        test.classroom = classroom
+
+    # print(name)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
 
