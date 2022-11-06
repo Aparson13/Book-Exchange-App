@@ -98,12 +98,7 @@ def UpdateClassroom(request):
 
     test = Textbooks.objects.get(name = name, author = author)
     if 'add_like' in request.POST:
-        print("Liked")
         test.likes += 1
-    else:
-        if (classroom == None or classroom == ""):
-            return HttpResponseRedirect(reverse('textbooks-list'))
-        test.classroom = classroom
 
     # print(name)
     test.save()
