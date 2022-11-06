@@ -82,8 +82,8 @@ class Profile(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
 
     LOCATION_OPTIONS = (
-    ("On", "On Grounds"),
-    ("Off", "Off Grounds"),
+    ("On Grounds", "On Grounds"),
+    ("Off Grounds", "Off Grounds"),
     )
     YEAR_OPTIONS = (
     ("1", "1st year"),
