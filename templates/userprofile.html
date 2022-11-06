@@ -59,15 +59,122 @@
             </div>
         </div>
     </nav>
-
-<div class="container"> 
-<h2> Name: {{ user.profile.first_name }} {{ user.profile.last_name }} </h2>
+    <style type="text/css">
+        #ProfilePage
+        {
+            /* Move it off the top of the page, then centre it horizontally */
+            margin: 50px auto;
+            width: 635px;
+        
+        /* For visibility. Delete me */
+        border: 1px solid red;
+        }
+        
+        #LeftCol
+        {
+            /* Move it to the left */
+            float: left;
+        
+            width: 200px;
+            text-align: center;
+        
+            /* Move it away from the content */
+            margin-right: 20px;
+        
+        /* For visibility. Delete me */
+        border: 1px solid brown;
+        }
+        
+        #Photo
+        {
+            /* Width and height of photo container */
+            width: 200px;
+            height: 200px;
+        
+        /* For visibility. Delete me */
+        border: 1px solid green;
+        }
+        
+        #PhotoOptions
+        {
+            text-align: center;
+            width: 200px;
+        
+        /* For visibility. Delete me */
+        border: 1px solid brown;
+        }
+        
+        #Info
+        {
+            width: 400px;
+            text-align: center;
+        
+            /* Move it to the right */
+            float: right;
+        
+        /* For visibility. Delete me */
+        border: 1px solid blue;
+        }
+        
+        #Info strong
+        {
+            /* Give it a width */
+            display: inline-block;
+            width: 100px;
+        
+        /* For visibility. Delete me */
+        border: 1px solid orange;
+        }
+        
+        #Info span
+        {
+            /* Give it a width */
+            display: inline-block;
+            width: 500px;
+        
+        /* For visibility. Delete me */
+        border: 1px solid purple;
+        }
+        </style>
+        
+       
+       
+        <div id="LeftCol">
+            
+        
+            <p>
+                <strong>Username:</strong>
+                <span>{{ user.profile.username }} </span>
+            </p>
+            <p>
+                <strong>Name:</strong>
+                <span>{{ user.profile.first_name }} {{ user.profile.last_name }} </span>
+            </p>
+            <p>
+                <strong>Location:</strong>
+                <span>{{ user.profile.location }} </span>
+            </p>
+            <p>
+                <strong>Year:</strong>
+                <span>{{ user.profile.year }}</span>
+            </p>
+            <p>
+                <strong>Major:</strong>
+                <span>{{ user.profile.major }}</span>
+            </p>
+            <p>
+                <strong>Rating:</strong>
+                <span> {{ user.averageReview }}</span>
+            </p>
+        </div>
+<!--
+        <h2> Name: {{ user.profile.first_name }} {{ user.profile.last_name }} </h2>
 <h2> Username: {{ user.profile.username }} </h2>
 <h2> Location: {{ user.profile.location }} </h2>
 <h2> Year: {{ user.profile.year }} </h2>
 <h2> Major: {{ user.profile.major}} </h2>
 <h2> Rating: {{ user.averageReview }} </h2>
-
+-->
 
 </div>
 <body>
