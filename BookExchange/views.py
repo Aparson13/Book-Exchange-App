@@ -33,6 +33,10 @@ class UserView(generic.ListView):
     model = User
     template_name = 'index.html'
 
+class loginIndex(generic.ListView):
+    model = Textbooks
+    template_name = 'login.html'
+
 class ProfileView(generic.ListView):
     model = Profile
     model = Rating
@@ -40,8 +44,7 @@ class ProfileView(generic.ListView):
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
-    
+    return redirect('login')
 
 def Profilesv(request):
     if request.method == 'POST':
