@@ -42,33 +42,17 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    {% if user.is_authenticated %}
                     <a class="nav-link" href="/sell/">Sell a Textbook</a>
-                    {% else %}
-                    <a class="nav-link" href="/home/"> Sell a Textbooks</a>
-                    {% endif %}
                 </li>
                 <li class="nav-item">
-                    {% if user.is_authenticated %}
                     <a class="nav-link" href="/list/">List of Textbooks</a>
-                    {% else %}
-                    <a class="nav-link" href="/home/"> List of Textbooks</a>
-                    {% endif %}
                 </li>
                 <li class="nav-item">
-                    {% if user.is_authenticated %}
                     <a class="nav-link" href="/professors/">Professors</a>
-                    {% else %}
-                    <a class="nav-link" href="/home/">Professors</a>
-                    {% endif %}
                 </li>
 
                 <li class="nav-item">
-                    {% if user.is_authenticated %}
                     <a class="nav-link" href="/userprofile">Profile</a>
-                    {% else %}
-                    <a class="nav-link" href="/home/">Profile</a>
-                    {% endif %}
                 </li>
 
             </ul>
