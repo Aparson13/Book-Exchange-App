@@ -11,11 +11,6 @@ import requests
 from django.urls import reverse
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
-
 from rest_framework import generics
 from django.views import generic
 from .models import Textbooks, Rating

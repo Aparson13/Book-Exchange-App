@@ -17,7 +17,7 @@ urlpatterns = [
    path('accounts/', include('allauth.urls')),
    path('profile', views.Profilesv, name='profile'),
    #path('login', auth_view.LoginView.as_view(), name='login'),
-   path('logout', logout_view, name="logout"),
+   path('logout', LogoutView.as_view(), name="logout"),
    #path('logout2', logout2_view, name="logout2"),
    path('textbooks/', ListTextbooksView.as_view(), name="textbooks-all"),
    path('filter/', FilterView.as_view(), name="filter"),   
