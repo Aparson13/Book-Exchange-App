@@ -46,8 +46,17 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile">Edit Profile</a>
+                    <a class="nav-link" href="/userprofile">Profile</a>
                 </li>
+            </ul>
+        </div>
+        <div class="navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <a class="navbar-brand" href="/favorites">
+                    <div class="logo-image">
+                        <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+                    </div>
+                </a>
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
@@ -303,6 +312,19 @@
             box-shadow: 0px 10px 5px #b2bec3;
             color: #eb4d4b
         }
+    .remove-button {
+        background-color: #EE4B2B;
+        border: none;
+        padding: 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 100%;
+    }
+
+        .remove-button:hover {
+            box-shadow: 0px 10px 5px #b2bec3;
+            color: white
+        }
 </style>
 <section class="product-list">
     <center>
@@ -339,9 +361,18 @@
                         Buy Now
                     </button>
                 </div>
-
-            </div>
         </form>
+        <div>
+            <form action="/update-favorites/" method="post">
+                {% csrf_token %}
+                <button class="remove-button" type="submit" value="Submit">
+                    Remove From Favorites
+                </button>
+            </form>
+        </div>
+
+        </div>
+
         {% endfor %}
 
     </div>

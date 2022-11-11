@@ -52,6 +52,15 @@
         </div>
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
+                <a class="navbar-brand" href="/favorites">
+                    <div class="logo-image">
+                        <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+                    </div>
+                </a>
+            </ul>
+        </div>
+        <div class="navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/logout"><span style="color:darkred;"><b>Logout</b></span></a>
