@@ -5,6 +5,11 @@
 {% load static %}
 {% load socialaccount %}
 
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="{% static 'BookExchange/style.css' %}">
+</head>
+
 <style>
     #backgroundimage {
         background-image: url('images/textbooks2.jpg');
@@ -186,19 +191,12 @@
         }
 </style>
 
-{% if user.is_authenticated %}
-<a class="nav-link active" aria-current="page" href="/logout"><span style="color:darkred;"><b>Logout</b></span></a>
-{% else %}
-<a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
-{% endif %}
-
-
 <div id="backgroundimage">
     <center>
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <div class="OutlineText">
             <h1 style=font-size:100px;color:MediumSeaGreen>Textbook Exchange </h1>
-            <br /><br />
+<br />
             {% if user.is_authenticated %}
             <h5>     Welcome, You are logged in as {{ user.username }}</h5>
             <form action="/home/">
@@ -210,7 +208,7 @@
             </form>
 
             {% else %}
-
+            <a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
             {% endif %}
         </div>
     </center>
