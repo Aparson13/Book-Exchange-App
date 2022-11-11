@@ -11,11 +11,6 @@ import requests
 from django.urls import reverse
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
-
 from rest_framework import generics
 from django.views import generic
 from .models import Textbooks, Rating
@@ -33,6 +28,10 @@ class UserView(generic.ListView):
     model = User
     template_name = 'index.html'
 
+class loginIndex(generic.ListView):
+    model = Textbooks
+    template_name = 'login.html'
+
 class ProfileView(generic.ListView):
     model = Profile
     model = Rating
@@ -40,8 +39,7 @@ class ProfileView(generic.ListView):
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
-    
+    return redirect('login')
 
 def Profilesv(request):
     if request.method == 'POST':
@@ -80,11 +78,12 @@ def SellTextbooksWrite(request):
     authorR = request.POST.get('author')
     conditionR = request.POST.get('inCondition') 
     priceR = request.POST.get('price')
+    classroomR = request.POST.get('classroom')
     if request.user.is_authenticated:
         current_user = request.user
     else:
         current_user = "anonymous"
-    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user)
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, classroom = classroomR)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
 
@@ -114,6 +113,7 @@ def ApplyFilters(request):
     nAuthor = request.GET.get('inAuthor')
     nCondition = request.GET.get('inCondition')
     nPrice = request.GET.get('inPrice')
+    nClassroom = request.GET.get('inClassroom')
     if nTitle  != '' and nTitle is not None:
         qset = qset.filter(name__icontains = nTitle)
     if nAuthor  != '' and nAuthor is not None:
@@ -126,6 +126,8 @@ def ApplyFilters(request):
         qset = qset.filter(price__range=(50.01,100))
     elif nPrice == '100+' and nPrice is not None:
         qset = qset.filter(price__min=(100.01))
+    if nClassroom != '' and nClassroom is not None:
+        qset = qset.filter(classroom__icontains = nClassroom)
     adjusted = {
         'queryset': qset
     }

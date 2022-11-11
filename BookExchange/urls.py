@@ -6,17 +6,19 @@ from .views import SellTextbooksView
 from .views import SellTextbooksWrite, UpdateClassroom
 from .views import SellTextbooksList, ApplyFilters
 from .views import ListTextbooksView, logout_view
-from .views import Profile, ProfileView, FilterView
+from .views import Profile, ProfileView, FilterView, loginIndex
 
 
 
 urlpatterns = [
-   path('', TemplateView.as_view(template_name="index.html")),
-   path('', views.index, name='index'), 
+   path('home/', TemplateView.as_view(template_name="index.html")),
+   #path('home/', views.index, name='index'), 
+   path('', loginIndex.as_view(), name='login'),
    path('accounts/', include('allauth.urls')),
    path('profile', views.Profilesv, name='profile'),
    #path('login', auth_view.LoginView.as_view(), name='login'),
-   path('logout', logout_view, name="logout"),
+   path('logout', LogoutView.as_view(), name="logout"),
+   #path('logout2', logout2_view, name="logout2"),
    path('textbooks/', ListTextbooksView.as_view(), name="textbooks-all"),
    path('filter/', FilterView.as_view(), name="filter"),   
    path('applyFilter/', ApplyFilters, name="applyFilters"),
