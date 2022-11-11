@@ -124,6 +124,7 @@
             /* For visibility. Delete me */
             border: 1px solid purple;
         }
+
     #backgroundimage {
         background-image: url('images/textbooks2.jpg');
         width: 100vw;
@@ -303,58 +304,57 @@
             color: #eb4d4b
         }
 </style>
-
-
-
-<div id="LeftCol">
-
-
-    <p>
-        <strong>Username:</strong>
-        <span>{{ user.profile.username }} </span>
-    </p>
-    <p>
-        <strong>Name:</strong>
-        <span>{{ user.profile.first_name }} {{ user.profile.last_name }} </span>
-    </p>
-    <p>
-        <strong>Location:</strong>
-        <span>{{ user.profile.location }} </span>
-    </p>
-    <p>
-        <strong>Year:</strong>
-        <span>{{ user.profile.year }}</span>
-    </p>
-    <p>
-        <strong>Major:</strong>
-        <span>{{ user.profile.major }}</span>
-    </p>
-    <p>
-        <strong>Rating:</strong>
-        <span> {{ user.averageReview }}</span>
-    </p>
-</div>
-<!--
-        <h2> Name: {{ user.profile.first_name }} {{ user.profile.last_name }} </h2>
-<h2> Username: {{ user.profile.username }} </h2>
-<h2> Location: {{ user.profile.location }} </h2>
-<h2> Year: {{ user.profile.year }} </h2>
-<h2> Major: {{ user.profile.major}} </h2>
-<h2> Rating: {{ user.averageReview }} </h2>
--->
-</div>
-<body>
+<section class="product-list">
     <center>
-        <br /><br />
-
-
-        <br /><br /><br />
-
-        <br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br />
-        <footer>
-            <p>Author: B-22</p>
-        </footer>
+        <h1>
+            Favorites
+        </h1>
     </center>
-</body>
+    <div class="product-container">
+        {% for textbook in user.favorites.all %}
+        <form action="/update-classroom/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="card">
+                <div class="title">
+                    <input readonly type="text" name="name" value="{{textbook.name}}" />
+                    <div style="height: 40px;" class="rounded bg-danger bg-gradient text-white py-2 px-3 d-flex flex-row align-items-center">{{ textbook.likes }} likes</div>
+                </div>
+                <div class="image">
+                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png'>
+                </div>
+                <div class="text">
+                    Author: <input readonly type="text" name="author" value="{{textbook.author}}" /> <br />
+                    Condition: <input readonly type="text" name="condition" value="{{textbook.condition}}" /> <br />
+                    Seller: <input readonly type="text" name="creator" value="{{textbook.creator}}" /> <br />
+                    Price: <input readonly type="text" name="price" value="{{textbook.price}}" /> <br />
+                    Classroom: <input readonly type="text" name="text" value="{{textbook.classroom}}" />
+                </div>
+                <div>
+                    <input class="like-button" type="submit" name="add_like" value="Like" />
+                </div>
+
+                <div>
+                    <button class="buy-button">
+                        Buy Now
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        {% endfor %}
+
+    </div>
+</section>
+
+    <body>
+        <center>
+            <br /><br />
+
+
+            <footer>
+                <p>Author: B-22</p>
+            </footer>
+        </center>
+    </body>
 

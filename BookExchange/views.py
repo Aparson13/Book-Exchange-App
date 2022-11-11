@@ -73,6 +73,10 @@ class SellTextbooksView(generic.ListView):
     template_name = 'SellTextbooks.html'
     model = Textbooks
 
+class FavoritesView(generic.ListView):
+    template_name = 'favorites.html'
+    model = Textbooks
+
 def SellTextbooksWrite(request):
     nameR = request.POST.get('name')
     authorR = request.POST.get('author')
