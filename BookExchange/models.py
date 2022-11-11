@@ -44,6 +44,20 @@ class UserManager(BaseUserManager):
     user.save(using=self._db)
     return user
 
+class Textbooks(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    author = models.CharField(max_length=255, null=False)
+    condition = models.CharField(max_length=255, null=False)
+    creator = models.CharField(max_length=255, null=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0, validators=[MinValueValidator(Decimal(0.00))]) 
+    classroom = models.CharField(max_length=255, null=True)
+    likes = models.IntegerField(default=0)
+    def negCheck(price):
+        if (price < 0):
+            raise ValidationError('Cannot enter a negative value.')
+    def __str__(self):
+        return "{} - {} - {}".format(self.author, self.condition, self.price, self.creator,selfUser = models.ForeignKey(User, on_delete=models.CASCADE).name)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=254, unique=True)
@@ -74,6 +88,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = [ 'email']
 
     objects = UserManager()
+    favorites = models.ManyToManyField(Textbooks, related_name='favorited_by')
 
     def get_absolute_url(self):
         return "/users/%i/" % (self.pk)
@@ -115,16 +130,3 @@ class Rating(models.Model):
     status = models.BooleanField(default=True)
 
 
-class Textbooks(models.Model):
-    name = models.CharField(max_length=255, null=False)
-    author = models.CharField(max_length=255, null=False)
-    condition = models.CharField(max_length=255, null=False)
-    creator = models.CharField(max_length=255, null=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0, validators=[MinValueValidator(Decimal(0.00))]) 
-    classroom = models.CharField(max_length=255, null=True)
-    likes = models.IntegerField(default=0)
-    def negCheck(price):
-        if (price < 0):
-            raise ValidationError('Cannot enter a negative value.')
-    def __str__(self):
-        return "{} - {} - {}".format(self.author, self.condition, self.price, self.creator,selfUser = models.ForeignKey(User, on_delete=models.CASCADE).name)

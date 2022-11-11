@@ -73,6 +73,10 @@ class SellTextbooksView(generic.ListView):
     template_name = 'SellTextbooks.html'
     model = Textbooks
 
+class FavoritesView(generic.ListView):
+    template_name = 'favorites.html'
+    model = Textbooks
+
 def SellTextbooksWrite(request):
     nameR = request.POST.get('name')
     authorR = request.POST.get('author')
@@ -94,14 +98,31 @@ def UpdateClassroom(request):
     price = request.POST.get('price')
     creator = request.POST.get('creator')
     classroom = request.POST.get('classroom')
-
+    current_user = request.user
     test = Textbooks.objects.get(name = name, author = author)
+    #favorite = Textbooks.objects.get(pk=pk)
     if 'add_like' in request.POST:
         test.likes += 1
+        current_user.favorites.add(test)
 
     # print(name)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
+
+def UpdateFavorites(request):
+    name = request.POST.get('name')
+    author = request.POST.get('author')
+    condition = request.POST.get('condition') 
+    price = request.POST.get('price')
+    creator = request.POST.get('creator')
+    classroom = request.POST.get('classroom')
+    current_user = request.user
+    test = Textbooks.objects.get(name = name, author = author)
+    current_user.favorites.remove(test)
+
+    # print(name)
+    test.save()
+    return HttpResponseRedirect(reverse('favorites'))
 
 class FilterView(generic.ListView):
     template_name = 'Filters.html'
