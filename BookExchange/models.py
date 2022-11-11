@@ -96,6 +96,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)
     major = models.CharField(max_length=200)
+    favorites = models.ManyToManyField(Textbooks, related_name='favorited_by', null=True, blank=True)
 
     def __str__(self):
         return str(self.user)

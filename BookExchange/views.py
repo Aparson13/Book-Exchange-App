@@ -94,8 +94,9 @@ def UpdateClassroom(request):
     price = request.POST.get('price')
     creator = request.POST.get('creator')
     classroom = request.POST.get('classroom')
+    current_user = request.user
 
-    test = Textbooks.objects.get(name = name, author = author)
+    test = Textbooks.objects.get(name = name, author = author, condition = condition, price = price, creator = creator, classroom = classroom)
     if 'add_like' in request.POST:
         test.likes += 1
 
