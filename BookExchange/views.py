@@ -95,10 +95,11 @@ def UpdateClassroom(request):
     creator = request.POST.get('creator')
     classroom = request.POST.get('classroom')
     current_user = request.user
-
-    test = Textbooks.objects.get(name = name, author = author, condition = condition, price = price, creator = creator, classroom = classroom)
+    test = Textbooks.objects.get(name = name, author = author)
+    #favorite = Textbooks.objects.get(pk=pk)
     if 'add_like' in request.POST:
         test.likes += 1
+        current_user.favorites.add(test)
 
     # print(name)
     test.save()
