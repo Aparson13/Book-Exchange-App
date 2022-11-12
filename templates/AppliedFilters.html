@@ -11,8 +11,187 @@
 
 </head>
 
+<style>
+    #backgroundimage {
+        background-image: url('images/textbooks2.jpg');
+        width: 100vw;
+        height: 100vh;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        position: relative;
+    }
 
-<h1>
+    .logo-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-top: -6px;
+    }
+
+    .OutlineText {
+        font: Tahoma, Geneva, sans-serif;
+        font-size: 64px;
+        color: white;
+        text-shadow:
+        /* Outline */
+        -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF, -2px 0 0 #FFFFFF, 2px 0 0 #FFFFFF, 0 2px 0 #FFFFFF, 0 -2px 0 #FFFFFF; /* Terminate with a semi-colon */
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+
+    .container {
+        position: relative;
+        width: 1200px;
+        height: 300px;
+        margin: 240px auto;
+    }
+
+        .container .box {
+            position: relative;
+            width: calc(400px - 60px);
+            height: calc(300px - 60px);
+            background: #A2E4B8;
+            float: left;
+            margin: 15px;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+            .container .box .icon {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #3cb371;
+                transition: 0.5s;
+                z-index: 1;
+            }
+
+            .container .box:hover .icon {
+                top: 20px;
+                left: calc(50%-60px);
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+            }
+
+    .conatiner .box .icon .fa {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+        font-size: 80px;
+        transition: 0.5s;
+        color: #000;
+    }
+
+    .container .box:hover .icon .fa {
+        font-size: 40px;
+    }
+
+    .container .box .content {
+        position: absolute;
+        top: 100%;
+        height: calc(100%-100px);
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        transition: 0.5s;
+        opacity: 0;
+    }
+
+    .container .box:hover .content {
+        top: 100px;
+        opacity: 1;
+    }
+
+    .product-list {
+        background-color: #dfe6e9;
+        padding: 3em;
+    }
+
+        .product-list .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1em;
+            box-shadow: 0px 10px 5px #b2bec3;
+            text-align: center;
+            font-family: 'Poppins';
+        }
+
+    .card .title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .card img {
+        max-width: 100%;
+        border-radius: 5px;
+    }
+
+    .card .text {
+        text-align: left;
+        margin-left: 2em;
+        margin-bottom: 0.5em;
+        font-size: 12px;
+    }
+
+    .buy-button {
+        background-color: #f9ca24;
+        border: none;
+        padding: 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 100%;
+    }
+
+        .buy-button:hover {
+            box-shadow: 0px 10px 5px #b2bec3;
+            color: #eb4d4b
+        }
+
+    .product-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 20px;
+        grid-row-gap: 40px;
+    }
+
+    input {
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: hidden;
+        text-align: center;
+    }
+
+    .no-outline {
+        outline: none;
+    }
+
+    .like-button {
+        background-color: #9FE2BF;
+        border: none;
+        padding: 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 100%;
+    }
+
+        .like-button:hover {
+            box-shadow: 0px 10px 5px #b2bec3;
+            color: #eb4d4b
+        }
+</style>
+
 
     {% if user.is_authenticated %}
     <h5>     Welcome, You are logged in as {{ user.username }}</h5>
@@ -20,62 +199,102 @@
     {% else %}
 
     {% endif %}
-</h1>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <div class="logo-image">
-                <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png' class="img-fluid">
-            </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sell/">Sell a Textbook</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/list/">List of Textbooks</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/professors/">Professors</a>
-                </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">
+                <div class="logo-image">
+                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png' class="img-fluid">
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sell/">Sell a Textbook</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/list/">Buy a Textbook</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/professors/">Professors</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/userprofile">Profile</a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-nav navbar-right">
-            <ul class="nav navbar-nav navbar-right">
-                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/userprofile">Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+                    <a class="navbar-brand" href="/favorites">
+                        <div class="logo-image">
+                            <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            <div class="navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/logout"><span style="color:darkred;"><b>Logout</b></span></a>
                     </li>
-                {% else %}
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% provider_login_url 'google' %}"><span style="color:MediumSeaGreen;"><b>Login</b></span></a>
                     </li>
-                {% endif %}
-            </ul>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+<section class="product-list">
+    <center>
+        <h1>
+            Found {{queryset.count}} results: 
+        </h1>
+    </center>
 
-<div class="row">
-    <ul>
-        Found {{queryset.count}} results:
+    <div class="product-container">
+        
         {% for textbook in queryset %}
-        <li>
-            {{textbook.name}}
-            <span>Author: {{textbook.author}}</span>
-            <span>Condition: {{textbook.condition}}</span>
-            <span>Price: {{textbook.price}}</span>
-        </li>
+        <form action="/update-classroom/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="card">
+                <div class="title">
+                    <input readonly type="text" name="name" value="{{textbook.name}}" />
+                    <div style="height: 40px;" class="rounded bg-danger bg-gradient text-white py-2 px-3 d-flex flex-row align-items-center">{{ textbook.likes }} likes</div>
+                </div>
+                <div class="image">
+                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png'>
+                </div>
+                <div class="text">
+                    Author: <input readonly type="text" name="author" value="{{textbook.author}}" /> <br />
+                    Condition: <input readonly type="text" name="condition" value="{{textbook.condition}}" /> <br />
+                    Seller: <input readonly type="text" name="creator" value="{{textbook.creator}}" /> <br />
+                    Price: <input readonly type="text" name="price" value="{{textbook.price}}" /> <br />
+                    Classroom: <input readonly type="text" name="text" value="{{textbook.classroom}}" />
+                </div>
+                <div>
+                    <input class="like-button" type="submit" name="add_like" value="Like" />
+                </div>
+
+                <div>
+                    <button class="buy-button">
+                        Buy Now
+                    </button>
+                </div>
+
+            </div>
+        </form>
         {% endfor %}
-    </ul>
+
+    </div>
+
+</section>

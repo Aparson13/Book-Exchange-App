@@ -11,11 +11,6 @@ import requests
 from django.urls import reverse
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
-
 from rest_framework import generics
 from django.views import generic
 from .models import Textbooks, Rating
@@ -33,6 +28,10 @@ class UserView(generic.ListView):
     model = User
     template_name = 'index.html'
 
+class loginIndex(generic.ListView):
+    model = Textbooks
+    template_name = 'login.html'
+
 class ProfileView(generic.ListView):
     model = Profile
     model = Rating
@@ -40,8 +39,7 @@ class ProfileView(generic.ListView):
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
-    
+    return redirect('login')
 
 def Profilesv(request):
     if request.method == 'POST':
@@ -75,16 +73,21 @@ class SellTextbooksView(generic.ListView):
     template_name = 'SellTextbooks.html'
     model = Textbooks
 
+class FavoritesView(generic.ListView):
+    template_name = 'favorites.html'
+    model = Textbooks
+
 def SellTextbooksWrite(request):
     nameR = request.POST.get('name')
     authorR = request.POST.get('author')
     conditionR = request.POST.get('inCondition') 
     priceR = request.POST.get('price')
+    classroomR = request.POST.get('classroom')
     if request.user.is_authenticated:
         current_user = request.user
     else:
         current_user = "anonymous"
-    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user)
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, classroom = classroomR)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
 
@@ -95,19 +98,31 @@ def UpdateClassroom(request):
     price = request.POST.get('price')
     creator = request.POST.get('creator')
     classroom = request.POST.get('classroom')
-
+    current_user = request.user
     test = Textbooks.objects.get(name = name, author = author)
+    #favorite = Textbooks.objects.get(pk=pk)
     if 'add_like' in request.POST:
-        print("Liked")
         test.likes += 1
-    else:
-        if (classroom == None or classroom == ""):
-            return HttpResponseRedirect(reverse('textbooks-list'))
-        test.classroom = classroom
+        current_user.favorites.add(test)
 
     # print(name)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
+
+def UpdateFavorites(request):
+    name = request.POST.get('name')
+    author = request.POST.get('author')
+    condition = request.POST.get('condition') 
+    price = request.POST.get('price')
+    creator = request.POST.get('creator')
+    classroom = request.POST.get('classroom')
+    current_user = request.user
+    test = Textbooks.objects.get(name = name, author = author)
+    current_user.favorites.remove(test)
+
+    # print(name)
+    test.save()
+    return HttpResponseRedirect(reverse('favorites'))
 
 class FilterView(generic.ListView):
     template_name = 'Filters.html'
@@ -119,6 +134,7 @@ def ApplyFilters(request):
     nAuthor = request.GET.get('inAuthor')
     nCondition = request.GET.get('inCondition')
     nPrice = request.GET.get('inPrice')
+    nClassroom = request.GET.get('inClassroom')
     if nTitle  != '' and nTitle is not None:
         qset = qset.filter(name__icontains = nTitle)
     if nAuthor  != '' and nAuthor is not None:
@@ -131,6 +147,8 @@ def ApplyFilters(request):
         qset = qset.filter(price__range=(50.01,100))
     elif nPrice == '100+' and nPrice is not None:
         qset = qset.filter(price__min=(100.01))
+    if nClassroom != '' and nClassroom is not None:
+        qset = qset.filter(classroom__icontains = nClassroom)
     adjusted = {
         'queryset': qset
     }
