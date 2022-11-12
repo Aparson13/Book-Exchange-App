@@ -104,8 +104,21 @@
         <br>
         Price:<br> <input type="number" step="0.01" min="0" name="price">
         <br />
-        Classroom:<br> <input type="text" name="classroom">
-        <br />  <br />
+        Instructor: 
+        <input class="form-control w-25" type="text" list="instructor" name="instructor" />
+        <datalist id="instructor">
+            {% for instructor in instructors %}
+                <option value="{{instructor}}">{{instructor}}</option>
+            {% endfor %}
+        </datalist><br />
+
+        Course: 
+        <input class="form-control w-25" type="text" list="course" name="course" />
+        <datalist id="course">
+            {% for course in courses %}
+                <option value="{{course}}">{{course}}</option>
+            {% endfor %}
+        </datalist><br />
         {% buttons %}
         <input type="submit" value="Submit">
         {% endbuttons %}

@@ -15,6 +15,7 @@ from rest_framework import generics
 from django.views import generic
 from .models import Textbooks, Rating
 from .serializers import TextbooksSerializer
+from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
     return HttpResponse("Hello, B-22 Book Exchange is online.")
@@ -69,9 +70,29 @@ def SellTextbooksList(request):
     textbook_list = Textbooks.objects.all()
     return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
 
-class SellTextbooksView(generic.ListView):
-    template_name = 'SellTextbooks.html'
-    model = Textbooks
+def SellTextbooksList(request):
+    
+    # if request.method == 'POST':
+    #     print("Posted")
+    textbook_list = Textbooks.objects.all()
+    return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
+
+def SellTextbooksView(request):
+    response= requests.get('http://luthers-list.herokuapp.com/api/dept/CS/?format=json').json()
+    instructors = []
+    courses = []
+
+    for course in response:
+        if (course["instructor"]["name"] not in instructors):
+            if (course["instructor"]["name"] != "-"):
+                instructors.append(course["instructor"]["name"])
+        
+        if (course["description"] not in courses):
+            courses.append(course["description"])
+
+    # print(instructors)
+
+    return render(request,'SellTextbooks.html', {'instructors': sorted(instructors), 'courses': sorted(courses)})
 
 class FavoritesView(generic.ListView):
     template_name = 'favorites.html'
@@ -82,14 +103,18 @@ def SellTextbooksWrite(request):
     authorR = request.POST.get('author')
     conditionR = request.POST.get('inCondition') 
     priceR = request.POST.get('price')
-    classroomR = request.POST.get('classroom')
+    instructor = request.POST.get('instructor')
+    course = request.POST.get('course')
+    
     if request.user.is_authenticated:
         current_user = request.user
     else:
         current_user = "anonymous"
-    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, classroom = classroomR)
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, course = course, instructor = instructor)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
+
+    # print(instructor, course)
 
 def UpdateClassroom(request):
     name = request.POST.get('name')
@@ -97,7 +122,6 @@ def UpdateClassroom(request):
     condition = request.POST.get('condition') 
     price = request.POST.get('price')
     creator = request.POST.get('creator')
-    classroom = request.POST.get('classroom')
     current_user = request.user
     test = Textbooks.objects.get(name = name, author = author)
     #favorite = Textbooks.objects.get(pk=pk)
@@ -115,7 +139,6 @@ def UpdateFavorites(request):
     condition = request.POST.get('condition') 
     price = request.POST.get('price')
     creator = request.POST.get('creator')
-    classroom = request.POST.get('classroom')
     current_user = request.user
     test = Textbooks.objects.get(name = name, author = author)
     current_user.favorites.remove(test)
@@ -147,8 +170,6 @@ def ApplyFilters(request):
         qset = qset.filter(price__range=(50.01,100))
     elif nPrice == '100+' and nPrice is not None:
         qset = qset.filter(price__min=(100.01))
-    if nClassroom != '' and nClassroom is not None:
-        qset = qset.filter(classroom__icontains = nClassroom)
     adjusted = {
         'queryset': qset
     }
