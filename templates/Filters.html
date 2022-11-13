@@ -124,7 +124,21 @@
             <label class="form-check-label" for="inlineRadio3">(N/A)</label>
         </div>
         <br />
-        Classroom:<br> <input type="text" name="inClassroom">
+        Instructor: 
+        <input class="form-control w-25" type="text" list="instructor" name="instructor" />
+        <datalist id="instructor">
+            {% for instructor in instructors %}
+                <option value="{{instructor}}">{{instructor}}</option>
+            {% endfor %}
+        </datalist><br />
+
+        Course: 
+        <input class="form-control w-25" type="text" list="course" name="course" />
+        <datalist id="course">
+            {% for course in courses %}
+                <option value="{{course}}">{{course}}</option>
+            {% endfor %}
+        </datalist><br />
         <br />
         <br />
         {% buttons %}

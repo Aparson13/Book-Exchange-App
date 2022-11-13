@@ -157,13 +157,18 @@ def ApplyFilters(request):
     nAuthor = request.GET.get('inAuthor')
     nCondition = request.GET.get('inCondition')
     nPrice = request.GET.get('inPrice')
-    nClassroom = request.GET.get('inClassroom')
+    nCourse = request.GET.get('course')
+    nInstructor = request.GET.get('instructor')
     if nTitle  != '' and nTitle is not None:
         qset = qset.filter(name__icontains = nTitle)
     if nAuthor  != '' and nAuthor is not None:
         qset = qset.filter(author__icontains = nAuthor)
     if nCondition  != '' and nCondition is not None:
         qset = qset.filter(condition__icontains = nCondition)
+    if nCourse  != '' and nCourse is not None:
+        qset = qset.filter(course__icontains = nCourse)
+    if nInstructor  != '' and nInstructor is not None:
+        qset = qset.filter(instructor__icontains = nInstructor)
     if nPrice == '0-50' and nPrice is not None:
         qset = qset.filter(price__range=(0,50))
     elif nPrice == '50.01-100' and nPrice is not None:
@@ -174,4 +179,22 @@ def ApplyFilters(request):
         'queryset': qset
     }
     return render(request, "AppliedFilters.html", adjusted)
+
+def FiltersView(request):
+    response= requests.get('http://luthers-list.herokuapp.com/api/dept/CS/?format=json').json()
+    instructors = []
+    courses = []
+
+    for course in response:
+        if (course["instructor"]["name"] not in instructors):
+            if (course["instructor"]["name"] != "-"):
+                instructors.append(course["instructor"]["name"])
+        
+        if (course["description"] not in courses):
+            courses.append(course["description"])
+
+    # print(instructors)
+
+    return render(request,'Filters.html', {'instructors': sorted(instructors), 'courses': sorted(courses)})
+
 

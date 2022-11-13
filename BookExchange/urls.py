@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 from .views import SellTextbooksView
 from .views import SellTextbooksWrite, UpdateClassroom, UpdateFavorites
-from .views import SellTextbooksList, ApplyFilters
+from .views import SellTextbooksList, ApplyFilters, FiltersView
 from .views import ListTextbooksView, logout_view
 from .views import Profile, ProfileView, FilterView, loginIndex, FavoritesView
 
@@ -20,7 +20,7 @@ urlpatterns = [
    path('logout', LogoutView.as_view(), name="logout"),
    #path('logout2', logout2_view, name="logout2"),
    path('textbooks/', ListTextbooksView.as_view(), name="textbooks-all"),
-   path('filter/', FilterView.as_view(), name="filter"),   
+   path('filter/', FiltersView, name="filter"),   
    path('applyFilter/', ApplyFilters, name="applyFilters"),
    path('write/', SellTextbooksWrite, name="write-textbooks"),
    path('update-classroom/', UpdateClassroom, name="update-classroom"),
