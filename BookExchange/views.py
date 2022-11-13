@@ -201,4 +201,15 @@ def FiltersView(request):
 
     return render(request,'Filters.html', {'instructors': sorted(instructors), 'courses': sorted(courses)})
 
+class UserProfileView(DetailView):
+    model = User
+    template_name = 'userprofile.html'
+    select_related = ('profile',)
 
+    def get_object(self):
+        return self.get_queryset().get(username=self.kwargs['username'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.object
+        return context
