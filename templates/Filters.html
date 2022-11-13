@@ -87,6 +87,8 @@
         <br>
         Author:<br> <input type="text" name="inAuthor">
         <br>
+        ISBN:<br> <input type="text" name="inISBN">
+        <br>
         Condition:<br>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inCondition" id="inlineRadio1" value="New (Unused)">
@@ -124,23 +126,23 @@
             <label class="form-check-label" for="inlineRadio3">(N/A)</label>
         </div>
         <br />
-        Instructor: 
+        Instructor:
         <input class="form-control w-25" type="text" list="instructor" name="instructor" />
         <datalist id="instructor">
             {% for instructor in instructors %}
-                <option value="{{instructor}}">{{instructor}}</option>
+            <option value="{{instructor}}">{{instructor}}</option>
             {% endfor %}
         </datalist><br />
 
-        Course: 
+        Course:
         <input class="form-control w-25" type="text" list="course" name="course" />
         <datalist id="course">
             {% for course in courses %}
-                <option value="{{course}}">{{course}}</option>
+            <option value="{{course}}">{{course}}</option>
             {% endfor %}
         </datalist><br />
         <br />
-        <br />
+     
         {% buttons %}
         <input type="submit" value="Apply Filters">
         {% endbuttons %}
