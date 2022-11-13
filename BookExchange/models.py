@@ -52,6 +52,7 @@ class Textbooks(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default = 0, validators=[MinValueValidator(Decimal(0.00))]) 
     course = models.CharField(max_length=255, null=False, default="")
     instructor = models.CharField(max_length=255, null=False, default="")
+    isbn = models.CharField(max_length=255, null=False)
     likes = models.IntegerField(default=0)
     def negCheck(price):
         if (price < 0):

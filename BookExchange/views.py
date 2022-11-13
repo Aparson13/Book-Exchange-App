@@ -105,12 +105,13 @@ def SellTextbooksWrite(request):
     priceR = request.POST.get('price')
     instructor = request.POST.get('instructor')
     course = request.POST.get('course')
+    isbn = request.POST.get('isbn')
     
     if request.user.is_authenticated:
         current_user = request.user
     else:
         current_user = "anonymous"
-    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, course = course, instructor = instructor)
+    test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, course = course, instructor = instructor, isbn = isbn)
     test.save()
     return HttpResponseRedirect(reverse('textbooks-list'))
 
@@ -159,6 +160,7 @@ def ApplyFilters(request):
     nPrice = request.GET.get('inPrice')
     nCourse = request.GET.get('course')
     nInstructor = request.GET.get('instructor')
+    nIsbn= request.GET.get('inISBN')
     if nTitle  != '' and nTitle is not None:
         qset = qset.filter(name__icontains = nTitle)
     if nAuthor  != '' and nAuthor is not None:
@@ -169,6 +171,8 @@ def ApplyFilters(request):
         qset = qset.filter(course__icontains = nCourse)
     if nInstructor  != '' and nInstructor is not None:
         qset = qset.filter(instructor__icontains = nInstructor)
+    if nIsbn  != '' and nIsbn is not None:
+        qset = qset.filter(isbn__icontains = nIsbn)
     if nPrice == '0-50' and nPrice is not None:
         qset = qset.filter(price__range=(0,50))
     elif nPrice == '50.01-100' and nPrice is not None:
