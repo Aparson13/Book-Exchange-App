@@ -16,6 +16,7 @@ from django.views import generic
 from .models import Textbooks, Rating
 from .serializers import TextbooksSerializer
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import DetailView
 
 def index(request):
     return HttpResponse("Hello, B-22 Book Exchange is online.")

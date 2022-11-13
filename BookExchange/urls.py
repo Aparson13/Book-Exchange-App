@@ -6,7 +6,7 @@ from .views import SellTextbooksView
 from .views import SellTextbooksWrite, UpdateClassroom, UpdateFavorites
 from .views import SellTextbooksList, ApplyFilters, FiltersView
 from .views import ListTextbooksView, logout_view
-from .views import Profile, ProfileView, FilterView, loginIndex, FavoritesView, , UserProfileView
+from .views import Profile, ProfileView, FilterView, loginIndex, FavoritesView, UserProfileView
 
 
 
