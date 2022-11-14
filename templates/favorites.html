@@ -14,12 +14,6 @@
 
 </head>
 
-        {% if user.is_authenticated %}
-<h5>     Welcome, You are logged in as {{ user.username }}</h5>
-
-        {% else %}
-
-        {% endif %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/home">
@@ -32,31 +26,68 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% provider_login_url 'google' %}">Home</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/sell/">Sell a Textbook</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/list/">Buy a Textbook</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+                </li>
+                {% endif %}
+
+
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="/professors/">Professors</a>
                 </li> -->
-
+                {% if user.is_authenticated %}
                 <li class="nav-item">
-                <a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
-		</li>
+                    <a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Profile</a>
+                </li>
+                {% endif %}
+
+
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
                 <a class="navbar-brand" href="/favorites">
                     <div class="logo-image">
                         <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
                     </div>
                 </a>
+                {% else %}
+                <a class="navbar-brand" href="{% provider_login_url 'google' %}">
+                    <div class="logo-image">
+                        <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+                    </div>
+                </a>
+                {% endif %}
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
@@ -359,20 +390,20 @@
                     <input class="like-button" type="submit" name="add_like" value="Like" />
                 </div>
                 <div class="buy-button">
-                    <input type="button" onclick=location.href ="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Profile" />
+                    <input type="button" onclick=location.href ="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
 
 
                     </input>
                 </div>
                 <!--
-    <div>
-        <button class="buy-button">
-            Buy Now
-        </button>
-    </div>
-    -->
+                <div>
+                    <button class="buy-button">
+                        Buy Now
+                    </button>
+                </div>
+                -->
 
-</form>
+        </form>
         <!--
         <div>
             <form action="/update-favorites/" method="post">
@@ -383,8 +414,8 @@
             </form>
         </div>
         -->
-        </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
     </div>
 
 </section>

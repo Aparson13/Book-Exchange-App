@@ -35,31 +35,68 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
+					{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="/home">Home</a>
 					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{% provider_login_url 'google' %}">Home</a>
+					</li>
+					{% endif %}
+
+					{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link" href="/sell/">Sell a Textbook</a>
 					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+					</li>
+					{% endif %}
+
+					{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link" href="/list/">Buy a Textbook</a>
 					</li>
-					<!-- <li class="nav-item">
-						<a class="nav-link" href="/professors/">Professors</a>
-					</li> -->
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+					</li>
+					{% endif %}
 
+
+					<!-- <li class="nav-item">
+					<a class="nav-link" href="/professors/">Professors</a>
+				</li> -->
+					{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
 					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% provider_login_url 'google' %}">Profile</a>
+					</li>
+					{% endif %}
+
+
 				</ul>
 			</div>
 			<div class="navbar-nav navbar-right">
 				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
 					<a class="navbar-brand" href="/favorites">
 						<div class="logo-image">
 							<img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
 						</div>
 					</a>
+					{% else %}
+					<a class="navbar-brand" href="{% provider_login_url 'google' %}">
+						<div class="logo-image">
+							<img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+						</div>
+					</a>
+					{% endif %}
 				</ul>
 			</div>
 			<div class="navbar-nav navbar-right">
@@ -77,7 +114,7 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<br>
 	<div>
 		<div class="content-section" style"position:relative; left:300px; top:200px;">
@@ -86,25 +123,25 @@
 				{{ form }}
 				<style>
 					form {
-  					display: flex;
-  					flex-direction: column;
-  					background: #d2dce1;
-  					padding: 4vh 3vh;
-				}
+						display: flex;
+						flex-direction: column;
+						background: #d2dce1;
+						padding: 4vh 3vh;
+					}
 				</style>
 				<br></br><br></br>
-				<input type="submit" id="button" class="button_active" value="Save" onclick="myFunction();"/>
+				<input type="submit" id="button" class="button_active" value="Save" onclick="myFunction();" />
 				<script>
-					function myFunction(){
+					function myFunction() {
 						alert("Your Profile has been saved");
-					};   
-					</script>
+					};
+				</script>
 			</form>
 			<a href="/userprofile"><input type="submit" class="button_active" value="Exit"></a>
 		</div>
 	</div>
 	</br>
-	
+
 
 
 </body>

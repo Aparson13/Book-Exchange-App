@@ -26,31 +26,68 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% provider_login_url 'google' %}">Home</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/sell/">Sell a Textbook</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/list/">Buy a Textbook</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+                </li>
+                {% endif %}
+
+
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="/professors/">Professors</a>
                 </li> -->
-
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Edit Profile</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Edit Profile</a>
+                </li>
+                {% endif %}
+
+
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
                 <a class="navbar-brand" href="/favorites">
                     <div class="logo-image">
                         <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
                     </div>
                 </a>
+                {% else %}
+                <a class="navbar-brand" href="{% provider_login_url 'google' %}">
+                    <div class="logo-image">
+                        <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+                    </div>
+                </a>
+                {% endif %}
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
@@ -127,6 +164,7 @@
             /* For visibility. Delete me */
             border: 1px solid purple;
         }
+
     #backgroundimage {
         background-image: url('images/textbooks2.jpg');
         width: 100vw;
@@ -346,15 +384,72 @@
 <h2> Rating: {{ user.averageReview }} </h2>
 -->
 </div>
+
+<section class="product-list">
+    <center>
+        <h1>
+            {{ user.profile.username }}'s posts
+        </h1>
+    </center>
+    <div class="product-container">
+        {% for textbook in user.posts.all %}
+        <form action="/update-classroom/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="card">
+                <div class="title">
+                    <input readonly type="text" name="name" value="{{textbook.name}}" />
+                    <div style="height: 40px;" class="rounded bg-danger bg-gradient text-white py-2 px-3 d-flex flex-row align-items-center">{{ textbook.likes }} likes</div>
+                </div>
+                <div class="image">
+                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png'>
+                </div>
+                <div class="text">
+                    Author: <input readonly type="text" name="author" value="{{textbook.author}}" /> <br />
+                    Condition: <input readonly type="text" name="condition" value="{{textbook.condition}}" /> <br />
+                    ISBN: <input readonly type="text" name="isbn" value="{{textbook.isbn}}" /> <br />
+                    Seller: <input readonly type="text" name="creator" value="{{textbook.creator}}" /> <br />
+                    Price: <input readonly type="text" name="price" value="{{textbook.price}}" /> <br />
+                    Course: <input readonly type="text" name="text" value="{{textbook.course}}" /><br />
+                    Instructor: <input readonly type="text" name="text" value="{{textbook.instructor}}" />
+                </div>
+                <div>
+                    <input class="like-button" type="submit" name="add_like" value="Like" />
+                </div>
+                <div class="buy-button">
+                    <input type="button" style="background-color: #f9ca24; onclick=location.href ="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
+
+
+                    </input>
+                </div>
+                <!--
+                <div>
+                    <button class="buy-button">
+                        Buy Now
+                    </button>
+                </div>
+                -->
+
+        </form>
+        <!--
+        <div>
+            <form action="/update-favorites/" method="post">
+                {% csrf_token %}
+                <button class="remove-button" type="submit" value="Submit">
+                    Remove From Favorites
+                </button>
+            </form>
+        </div>
+        -->
+    </div>
+    {% endfor %}
+    </div>
+
+</section>
+
 <body>
     <center>
-        <br /><br />
 
-
-        <br /><br /><br />
-
-        <br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br />
         <footer>
             <p>Author: B-22</p>
         </footer>
