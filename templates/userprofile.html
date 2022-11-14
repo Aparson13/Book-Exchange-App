@@ -371,7 +371,16 @@
     </p>
     {% if user.profile.username == request.user %}
     <div class="buy-button">
-        <input type="button" onclick=location.href ="/profile" value="Edit Profile" />
+        <input type="button" onclick=location.href="/profile" value="Edit Profile" />
+
+
+        </input>
+    </div>
+    {% endif %}
+
+    {% if user.profile.username == "" %}
+    <div class="buy-button">
+        <input type="button" onclick=location.href="/profile" value="Edit Profile" />
 
 
         </input>
