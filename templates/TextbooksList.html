@@ -193,12 +193,6 @@
 </style>
 
 
-    {% if user.is_authenticated %}
-<h5>     Welcome, You are logged in as {{ user.username }}</h5>
-
-    {% else %}
-
-    {% endif %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/home">
@@ -298,7 +292,7 @@
                     <input class="like-button" type="submit" name="add_like" value="Like" />
                 </div>
                 <div class="buy-button">
-			        <input type="button" onclick=location.href="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Profile"/>
+			        <input type="button" style="background-color: #f9ca24; onclick=location.href="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile"/>
                             
                         
                     </input>
