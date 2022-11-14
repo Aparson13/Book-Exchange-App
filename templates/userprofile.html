@@ -26,31 +26,68 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% provider_login_url 'google' %}">Home</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/sell/">Sell a Textbook</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+                </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/list/">Buy a Textbook</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+                </li>
+                {% endif %}
+
+
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="/professors/">Professors</a>
                 </li> -->
-
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Edit Profile</a>
                 </li>
+                {% endif %}
+
+
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
                 <a class="navbar-brand" href="/favorites">
                     <div class="logo-image">
                         <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
                     </div>
                 </a>
+                {% else %}
+                <a class="navbar-brand" href="{% provider_login_url 'google' %}">
+                    <div class="logo-image">
+                        <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+                    </div>
+                </a>
+                {% endif %}
             </ul>
         </div>
         <div class="navbar-nav navbar-right">
@@ -127,6 +164,7 @@
             /* For visibility. Delete me */
             border: 1px solid purple;
         }
+
     #backgroundimage {
         background-image: url('images/textbooks2.jpg');
         width: 100vw;
