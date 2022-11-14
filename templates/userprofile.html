@@ -362,12 +362,16 @@
         <span>{{ user.profile.major }}</span>
     </p>
     <p>
+        <strong>Email:</strong>
+        <span>{{ user.profile.email }}</span>
+    </p>
+    <p>
         <strong>Rating:</strong>
         <span> {{ user.averageReview }}</span>
     </p>
     {% if user.profile.username == request.user %}
     <div class="buy-button">
-        <input type="button" onclick=location.href="/profile" value="Edit Profile" />
+        <input type="button" onclick=location.href ="/profile" value="Edit Profile" />
 
 
         </input>
