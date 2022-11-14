@@ -114,6 +114,7 @@ def SellTextbooksWrite(request):
         current_user = "anonymous"
     test = Textbooks(name = nameR, author = authorR, condition = conditionR, price = priceR, creator = current_user, course = course, instructor = instructor, isbn = isbn)
     test.save()
+    current_user.posts.add(test)
     return HttpResponseRedirect(reverse('textbooks-list'))
 
     # print(instructor, course)

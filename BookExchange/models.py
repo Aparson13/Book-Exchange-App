@@ -91,6 +91,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
     favorites = models.ManyToManyField(Textbooks, related_name='favorited_by')
+    posts = models.ManyToManyField(Textbooks, related_name='posted_by')
 
     def get_absolute_url(self):
         return "/users/%i/" % (self.pk)
