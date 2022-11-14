@@ -114,6 +114,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)
     major = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
 
     def __str__(self):
         return str(self.user)
@@ -125,7 +126,7 @@ class Profile(models.Model):
 class ProfileForms(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['last_name', 'first_name', 'major', 'year', 'location']
+        fields = ['last_name', 'first_name', 'major', 'year', 'location', 'email']
 
 class Rating(models.Model):
     User = models.ForeignKey(User, on_delete=models.CASCADE)
