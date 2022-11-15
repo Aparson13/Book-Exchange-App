@@ -190,6 +190,14 @@
             box-shadow: 0px 10px 5px #b2bec3;
             color: #eb4d4b
         }
+    .field {
+        width: 75%;
+        border: 15px solid seagreen;
+        padding: 1%;
+        margin: 2%;
+        background-color: mediumseagreen;
+        border-radius: 25px;
+    }
 </style>
 
 
@@ -286,9 +294,14 @@
 </nav>
 <section class="product-list">
     <center>
-        <h1>
-            Found {{queryset.count}} results:
-        </h1>
+        <div class="field">
+            <center>
+                <h1 style="color:white;">
+                    Found {{queryset.count}} results:
+                </h1>
+                <input type="button" onclick=location.href="/list" value="Clear Filters" />
+            </center>
+        </div>
     </center>
 
     <div class="product-container">
@@ -318,7 +331,7 @@
                     <input class="like-button" type="submit" name="add_like" value="Like" />
                 </div>
                 <div class="buy-button">
-                    <input type="button" onclick=location.href="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
+                    <input type="button" onclick=location.href ="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
 
 
                     </input>
