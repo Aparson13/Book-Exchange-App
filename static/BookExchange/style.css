@@ -62,37 +62,40 @@ body {
 		}
 
 		.container .box:hover .icon {
-			top: 20px;
-			left: calc(50%-60px);
+			top: 10%;
+			left: calc(38%);
 			width: 80px;
 			height: 80px;
 			border-radius: 50%;
 		}
 
-.conatiner .box .icon .fa {
+.container .box .icon .fa {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%);
+	transform: translate(-50%, -50%);
 	font-size: 80px;
 	transition: 0.5s;
 	color: #000;
 }
-
+.container {
+	background-color: #dfe6e9;
+}
 .container .box:hover .icon .fa {
 	font-size: 40px;
 }
 
-.container .box .content {
-	position: absolute;
-	top: 100%;
-	height: calc(100%-100px);
-	text-align: center;
-	padding: 20px;
-	box-sizing: border-box;
-	transition: 0.5s;
-	opacity: 0;
-}
+		.container .box .content {
+			position: absolute;
+			top: 100%;
+			height: calc(38%);
+			left: 30%;
+			text-align: center;
+			padding: 20px;
+			box-sizing: border-box;
+			transition: .5s;
+			opacity: 0;
+		}
 
 .container .box:hover .content {
 	top: 100px;
