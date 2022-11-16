@@ -198,6 +198,19 @@
         background-color: mediumseagreen;
         border-radius: 25px;
     }
+    .unlike-button {
+        background-color: #eb4d4b;
+        border: none;
+        padding: 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 100%;
+    }
+
+        .unlike-button:hover {
+            box-shadow: 0px 10px 5px #b2bec3;
+            color: white
+        }
 </style>
 
 
@@ -298,7 +311,12 @@
                         Instructor: <input readonly type="text" name="text" value="{{textbook.instructor}}" />
                     </div>
                     <div>
+                        {% if textbook in user.favorites.all %}
+                        <input class="unlike-button" type="submit" name="remove_like" value="Unlike" />
+                        {% else %}
                         <input class="like-button" type="submit" name="add_like" value="Like" />
+                        {% endif %}
+
                     </div>
                     <div class="buy-button">
                         <input type="button" onclick=location.href="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
