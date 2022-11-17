@@ -216,6 +216,15 @@
         /* Outline */
         -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000, -2px 0 0 #000000, 2px 0 0 #000000, 0 2px 0 #000000, 0 -2px 0 #000000; /* Terminate with a semi-colon */
     }
+    .login-button {
+        background: none;
+        border: none;
+        padding: 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 100%;
+        font-family: Great Vibes;
+    }
 </style>
 
 <head>
@@ -231,23 +240,22 @@
     <center>
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <div class="OutlineText">
-            <h1 class="handwritten" style=font-size:150px;color:white>Textbook Exchange </h1>
-            <br />
+            <h1 class="handwritten" style=font-size:250%;color:white>Textbook Exchange </h1>
         </div>
         {% if user.is_authenticated %}
         <div class="OutlineText2">
-            <h3 class="handwritten" style=color:white>     Welcome, You are logged in as {{ user.username }}</h3>
-        </div>
+            <h3 class="handwritten" style=color:white;font-size:50%>     Welcome, You are logged in as {{ user.username }}</h3>
+
             <form action="/home/">
                 {%csrf_token %}
                 {% buttons %}
-                <input class="handwritten" style=color:black type="submit" value="Continue to site">
+                <input class="login-button" style=color:white;font-size:50% type="submit" value="Continue to site">
                 {% endbuttons %}
 
             </form>
-
+        </div>
             {% else %}
-            <a class="nav-link" href="{% provider_login_url 'google' %}"><span class="handwritten" style="color:white;"><b>Login</b></span></a>
+            <a class="nav-link" href="{% provider_login_url 'google' %}"><span class="handwritten" style="color:white;font-size:300%"><b>Login</b></span></a>
             {% endif %}
 
     </center>
