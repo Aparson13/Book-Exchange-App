@@ -78,6 +78,12 @@ def SellTextbooksList(request):
     textbook_list = Textbooks.objects.all()
     return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
 
+def IndexView(request):
+    textbook_list = Textbooks.objects.all()
+    textbook_list = textbook_list.filter(price__range=(0,50))
+    textbook_list = textbook_list.filter(condition__icontains = "New (Unused)")
+    return render(request, 'index.html',{'textbook_list': textbook_list})
+
 def SellTextbooksView(request):
     response= requests.get('http://luthers-list.herokuapp.com/api/dept/CS/?format=json').json()
     instructors = []

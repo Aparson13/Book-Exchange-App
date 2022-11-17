@@ -7,6 +7,15 @@
 	background-attachment: fixed;
 	position: relative;
 }
+#BottomImage {
+	background-image: url('images/book.jpeg');
+	width: 100vw;
+	height: 60vh;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	position: relative;
+}
 
 .logo-image {
 	width: 40px;
