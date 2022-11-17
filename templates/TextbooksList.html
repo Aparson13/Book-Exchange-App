@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="{% static 'BookExchange/style.css' %}">
     <script src="{% static 'js/java.js' %}" type="text/javascript"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 
 <style>
@@ -222,6 +225,20 @@
             transform: translateY(0);
             opacity: 1;
         }
+    @font-face {
+        font-family: 'alluraregular';
+        src: url('9orpnysqps4zjuapjaixptrrga-webfont.woff2') format('woff2'), url('9orpnysqps4zjuapjaixptrrga-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .customfont {
+        font-family: 'alluraregular';
+    }
+
+    .handwritten {
+        font-family: Great Vibes;
+    }
 </style>
 
 
@@ -285,7 +302,7 @@
     <center>
         <div class="field">
             <center>
-                <h1 style="color:white;">
+                <h1 class="handwritten" style="color: white; font-size: 500%">
                     Textbooks
                 </h1>
                 <form action="/filter/">
