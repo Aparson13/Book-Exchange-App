@@ -8,7 +8,7 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="{% static 'BookExchange/style.css' %}">
-
+    <script src="{% static 'js/java.js' %}" type="text/javascript"></script>
 </head>
 
 <style>
@@ -210,6 +210,17 @@
         .unlike-button:hover {
             box-shadow: 0px 10px 5px #b2bec3;
             color: white
+        }
+    .reveal {
+        position: relative;
+        transform: translateY(150px);
+        opacity: 0;
+        transition: 1s all ease;
+    }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
         }
 </style>
 

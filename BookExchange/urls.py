@@ -6,12 +6,12 @@ from .views import SellTextbooksView
 from .views import SellTextbooksWrite, UpdateClassroom
 from .views import SellTextbooksList, ApplyFilters, FiltersView
 from .views import ListTextbooksView, logout_view
-from .views import Profile, ProfileView, FilterView, loginIndex, FavoritesView, UserProfileView
+from .views import Profile, ProfileView, FilterView, loginIndex, FavoritesView, UserProfileView, IndexView
 
 
 
 urlpatterns = [
-   path('home/', TemplateView.as_view(template_name="index.html")),
+   path('home/', IndexView, name="index"),
    #path('home/', views.index, name='index'), 
    path('', loginIndex.as_view(), name='login'),
    path('accounts/', include('allauth.urls')),
