@@ -71,13 +71,6 @@ def SellTextbooksList(request):
     textbook_list = Textbooks.objects.all()
     return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
 
-def SellTextbooksList(request):
-    
-    # if request.method == 'POST':
-    #     print("Posted")
-    textbook_list = Textbooks.objects.all()
-    return render(request, 'TextbooksList.html',{'textbook_list': textbook_list})
-
 def IndexView(request):
     textbook_list = Textbooks.objects.all()
     textbook_list = textbook_list.filter(price__range=(0,50))
