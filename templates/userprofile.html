@@ -383,7 +383,7 @@
     </p>
     <p>
         <strong>Rating:</strong>
-        <span> {{ user.averageReview }}</span>
+        <span> {{ user.averageReview }} ({{ user.countReview }})</span>
     </p>
     {% if user.profile.username == request.user %}
     <div class="buy-button">
