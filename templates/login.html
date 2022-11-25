@@ -4,6 +4,7 @@
 {% bootstrap_messages %}
 {% load static %}
 {% load socialaccount %}
+
 <style>
     .container {
         position: relative;
@@ -208,6 +209,9 @@
     .handwritten {
         font-family: Great Vibes;
     }
+    .handwritten2 {
+        font-family: 'Adobe Devanagari';
+    }
     .OutlineText2 {
         font: Tahoma, Geneva, sans-serif;
         font-size: 64px;
@@ -217,14 +221,101 @@
         -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000, -2px 0 0 #000000, 2px 0 0 #000000, 0 2px 0 #000000, 0 -2px 0 #000000; /* Terminate with a semi-colon */
     }
     .login-button {
-        background: none;
-        border: none;
-        padding: 1em;
-        border-radius: 5px;
-        font-weight: bold;
-        width: 100%;
-        font-family: Great Vibes;
+        font-family: 'Adobe Devanagari';
     }
+        .login-button:hover {
+            box-shadow: 0px 10px 5px #b2bec3;
+            color: brown;
+        }
+
+    .field2 {
+        width: 100%;
+        height: 100%;
+        border: 5vw solid #C4A484;
+        padding: 0%;
+        margin: 0%;
+    }
+
+    h1 {
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    h4 {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    h3 {
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    h2 {
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    .bxcontent {
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .button {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        height: 2.5rem;
+        padding-top: 1.3rem;
+        width: 15rem;
+        text-align: center;
+        color: #eb4d4b;
+        border: #C4A484 solid 0.2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none;
+        transform: translateX(-50%);
+    }
+
+
+
+    .container2 {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0%;
+    }
+
+    .split {
+        width: 50%;
+        height: 100%;
+        position: absolute;
+    }
+
+        .split.left {
+            left: 0;
+            background: url('https://i.pinimg.com/736x/32/8f/bf/328fbf1a0e456a170df7251ff0c4187d.jpg') center center no-repeat;
+            background-size: cover;
+        }
+
+
+        .split.right {
+            right: 0;
+        }
+
 </style>
 
 <head>
@@ -236,6 +327,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 </head>
 
+<!--
 <div id="backgroundimage">
     <center>
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -259,4 +351,30 @@
             {% endif %}
 
     </center>
+</div>
+--->
+<div class="field2">
+    <div class="container2">
+
+        <div class="split left">
+        </div>
+        <div class="split right">
+            <h1 class="handwritten" style=font-size:400%;color:black>Textbook Exchange </h1>
+
+            {% if user.is_authenticated %}
+            <h2 class="handwritten2" style=font-size:100%>     Welcome, You are logged in as {{ user.username }}</h2>
+
+            <form action="/home/">
+                {%csrf_token %}
+                {% buttons %}
+                <h4><input class="login-button" style=font-size:200% type="submit" value="Continue to site"></h4>
+                {% endbuttons %}
+
+            </form>
+            {% else %}
+            <h3 class="handwritten2" style=font-size:120%;color:black>Welcome to Textbook Exchange</h3>
+            <h4><a class="nav-link" href="{% provider_login_url 'google' %}"><span class="handwritten2" style="color:mediumseagreen;font-size:200%"><b>Login</b></span></a></h4>
+            {% endif %}
+        </div>
+    </div>
 </div>

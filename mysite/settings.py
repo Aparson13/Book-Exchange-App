@@ -166,4 +166,4 @@ ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/'
   
 # redirects to profile page if not configured.
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
