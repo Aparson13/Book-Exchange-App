@@ -109,11 +109,11 @@
     }
 
     .buy-button {
-        background-color: #f9ca24;
+        background-color: #C4A484;
         border: none;
-        padding: 1em;
+        padding: 5%;
         border-radius: 5px;
-        font-weight: bold;
+        font-family: 'Adobe Devanagari';
         width: 100%;
     }
 
@@ -373,7 +373,7 @@
             </form>
             {% else %}
             <h3 class="handwritten2" style=font-size:120%;color:black>Welcome to Textbook Exchange</h3>
-            <h4><a class="nav-link" href="{% provider_login_url 'google' %}"><span class="handwritten2" style="color:mediumseagreen;font-size:200%"><b>Login</b></span></a></h4>
+            <h4><a class="nav-link" href="{% provider_login_url 'google' %}"><span class="buy-button" style="color:black;font-size:200%"><b>Login</b></span></a></h4>
             {% endif %}
         </div>
     </div>
