@@ -39,29 +39,36 @@
                 {% endif %}
 
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/sell/">Sell a Textbook</a>
+                {% if user.profile.email == "" %}
+                <li class="nav-item" onclick="noEmail();">
+                    <a class="nav-link" href="/userprofile/{{ user.username }}">List a Textbook</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+                    <a class="nav-link" href="/sell/">List a Textbook</a>
+                </li>
+                {% endif %}
+
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">List a Textbook</a>
                 </li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/list/">Buy a Textbook</a>
+                    <a class="nav-link" href="/list/">Browse Textbooks</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Browse Textbooks</a>
                 </li>
                 {% endif %}
 
 
                 <!-- <li class="nav-item">
-                    <a class="nav-link" href="/professors/">Professors</a>
-                </li> -->
+        <a class="nav-link" href="/professors/">Professors</a>
+    </li> -->
 
 
             </ul>
@@ -83,6 +90,7 @@
                 {% endif %}
             </ul>
         </div>
+
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
@@ -110,7 +118,7 @@
     #LeftCol {
         /* Move it to the left */
         float: left;
-        width: 200px;
+        width: 20%;
         text-align: center;
         /* Move it away from the content */
         margin-right: 20px;
@@ -350,9 +358,27 @@
     .handwritten {
         font-family: Great Vibes;
     }
+    .buy-button4 {
+        background-color: #C4A484;
+        border: none;
+        padding: .5em;
+        border-radius: 5px;
+        color: black;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+    }
+
+        .buy-button4:hover {
+            color: white;
+        }
 </style>
 
-
+<script>
+    function noEmail() {
+        alert('You need to add an email to your profile to list a textbook')
+    };
+</script>
 
 <div id="LeftCol">
 
@@ -397,7 +423,7 @@
         <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
     </div>
 
-    {% if user.profile.username == request.user %}
+    {% if user.username == request.user.username %}
     <div class="buy-button">
         <input type="button" onclick=location.href="/profile" value="Edit Profile" />
 
@@ -406,14 +432,7 @@
     </div>
     {% endif %}
 
-    {% if user.profile.username == "" %}
-    <div class="buy-button">
-        <input type="button" onclick=location.href="/profile" value="Edit Profile" />
-
-
-        </input>
-    </div>
-    {% endif %}
+   
 </div>
 <!--
         <h2> Name: {{ user.profile.first_name }} {{ user.profile.last_name }} </h2>
@@ -427,7 +446,7 @@
 
 <section class="product-list">
     <center>
-        <h1 class="handwritten" style="color: black; font-size: 500%">
+        <h1 style="color: black; font-size: 300%">
             {{ user.username }}'s posts
         </h1>
     </center>
@@ -442,7 +461,7 @@
                     <div style="height: 40px;" class="rounded bg-danger bg-gradient text-white py-2 px-3 d-flex flex-row align-items-center">{{ textbook.likes }} likes</div>
                 </div>
                 <div class="image">
-                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png'>
+                    <img src='https://www.pngkey.com/png/detail/8-87431_images-pngpix-stack-transparent-book-png.png' style="width:75%;height:75%;">
                 </div>
                 <div class="text">
                     Author: <input readonly type="text" name="author" value="{{textbook.author}}" /> <br />

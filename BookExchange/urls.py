@@ -23,6 +23,7 @@ urlpatterns = [
    path('filter/', FiltersView, name="filter"),   
    path('applyFilter/', ApplyFilters, name="applyFilters"),
    path('write/', SellTextbooksWrite, name="write-textbooks"),
+   #path('profileRedirect/', profileRedirectWrite, name="profileRedirect"),
    path('update-classroom/', UpdateClassroom, name="update-classroom"),
    path('sell/', SellTextbooksView, name="sell-textbooks"),
    path('list/', SellTextbooksList, name="textbooks-list"),

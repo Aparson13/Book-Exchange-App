@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\mysite",
+    "\\static",
+    "\\static\\js",
+    "\\templates"
   ],
-  "SelectedNode": "\\C:\\Users\\Student\\Source\\Repos\\project-b-22",
+  "SelectedNode": "\\templates\\userprofile.html",
   "PreviewInSolutionExplorer": false
 }

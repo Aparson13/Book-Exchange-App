@@ -257,6 +257,13 @@
         transform: translateX(-50%);
         white-space: nowrap;
     }
+    h6 {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
     h2 {
         position: absolute;
         left: 50%;
@@ -359,7 +366,7 @@
         <div class="split left">
         </div>
         <div class="split right">
-            <h1 class="handwritten" style=font-size:400%;color:black>Textbook Exchange </h1>
+            <h1 class="handwritten" style=font-size:400%;color:black>Hoos Reading </h1>
 
             {% if user.is_authenticated %}
             <h2 class="handwritten2" style=font-size:100%>     Welcome, You are logged in as {{ user.username }}</h2>
@@ -372,7 +379,8 @@
 
             </form>
             {% else %}
-            <h3 class="handwritten2" style=font-size:120%;color:black>Welcome to Textbook Exchange</h3>
+            <h3 class="handwritten2" style=font-size:120%;color:black>Welcome to Hoos Reading! </h3>
+            <h6 class="handwritten2" style=font-size:120%;color:black>Voted the #1 best Textbook Exchange website in 2022 </h6>
             <h4><a class="nav-link" href="{% provider_login_url 'google' %}"><span class="buy-button" style="color:black;font-size:200%"><b>Login</b></span></a></h4>
             {% endif %}
         </div>

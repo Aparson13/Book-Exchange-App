@@ -38,36 +38,29 @@
                 {% endif %}
 
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/sell/">Sell a Textbook</a>
+                {% if user.profile.email == "" %}
+                <li class="nav-item" onclick="noEmail();">
+                    <a class="nav-link" href="/userprofile/{{ user.username }}">List a Textbook</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+                    <a class="nav-link" href="/sell/">List a Textbook</a>
+                </li>
+                {% endif %}
+
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">List a Textbook</a>
                 </li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/list/">Buy a Textbook</a>
+                    <a class="nav-link" href="/list/">Browse Textbooks</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
-                </li>
-                {% endif %}
-
-
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="/professors/">Professors</a>
-                </li> -->
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Profile</a>
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Browse Textbooks</a>
                 </li>
                 {% endif %}
 
@@ -91,6 +84,19 @@
                 {% endif %}
             </ul>
         </div>
+        <a class="navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <a class="buy-button4" href="/userprofile/{{ user.username }}">
+                    {{ user.username }}'s Profile
+                </a>
+                {% else %}
+                <a class="buy-button4" href="{% provider_login_url 'google' %}">
+                    Profile
+                </a>
+                {% endif %}
+            </ul>
+        </a>
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
@@ -124,7 +130,7 @@
                     <br> <input class="form-control w-55" type="text" name="inAuthor">
                 </div>
                 <div class="column">
-                    ISBN:
+                    13-digit ISBN:
                     <br> <input class="form-control w-55" type="text" name="inISBN">
                 </div>
             </div>
@@ -225,6 +231,7 @@
                 background-color: mediumseagreen;
                 border-radius: 25px;
             }
+
             @font-face {
                 font-family: 'alluraregular';
                 src: url('9orpnysqps4zjuapjaixptrrga-webfont.woff2') format('woff2'), url('9orpnysqps4zjuapjaixptrrga-webfont.woff') format('woff');
@@ -239,9 +246,57 @@
             .handwritten {
                 font-family: Great Vibes;
             }
+
+            .buy-button2 {
+                background-color: #FFFFFF;
+                border: none;
+                padding: .5em;
+                border-radius: 5px;
+                font-weight: bold;
+                width: 15%;
+            }
+
+                .buy-button2:hover {
+                    box-shadow: 0px 10px 5px #b2bec3;
+                    color: #eb4d4b
+                }
+
+            .buy-button3 {
+                background-color: #FFFFFF;
+                border: none;
+                padding: .5em;
+                border-radius: 5px;
+                font-weight: bold;
+                width: 50%;
+            }
+
+                .buy-button3:hover {
+                    box-shadow: 0px 10px 5px #b2bec3;
+                    color: #eb4d4b
+                }
+
+            .buy-button4 {
+                background-color: #C4A484;
+                border: none;
+                padding: .5em;
+                border-radius: 5px;
+                color: black;
+                width: 100%;
+                text-align: center;
+                text-decoration: none;
+            }
+
+                .buy-button4:hover {
+                    color: white;
+                }
         </style>
+        <script>
+            function noEmail() {
+                alert('You need to add an email to your profile to list a textbook')
+            };
+        </script>
         <center>
-            <input class="buy-button" type="submit" value="Apply" />
+            <input class="buy-button2" type="submit" value="Apply" />
         </center>
 
     </form>
@@ -251,7 +306,7 @@
                 <form action="/home/">
                     {%csrf_token %}
                     {% buttons %}
-                    <input type="submit" value="Return to home">
+                    <input type="submit" class="buy-button3" value="Return to home">
                     {% endbuttons %}
 
                 </form>
@@ -260,7 +315,7 @@
                 <form action="/list/">
                     {%csrf_token %}
                     {% buttons %}
-                    <input type="submit" value="Return to listings">
+                    <input type="submit" class="buy-button3" value="Return to listings">
                     {% endbuttons %}
 
                 </form>
