@@ -152,6 +152,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 SITE_ID = 4
 
+SOCIALACCOUNT_LOGIN_ON_GET=True
 LOGOUT_REDIRECT_URL = "/";
 LOGIN_REDIRECT_URL = "/home";
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 

@@ -122,6 +122,35 @@
             color: #eb4d4b
         }
 
+    .buy-button2 {
+        background-color: #FFFFFF;
+        border: none;
+        padding: 1em;
+        border-radius: 5px;
+        font-weight: bold;
+        width: 10%;
+    }
+
+        .buy-button2:hover {
+            box-shadow: 0px 10px 5px #b2bec3;
+            color: #eb4d4b
+        }
+
+    .buy-button4 {
+        background-color: #C4A484;
+        border: none;
+        padding: .5em;
+        border-radius: 5px;
+        color: black;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+    }
+
+        .buy-button4:hover {
+            color: white;
+        }
+
     .product-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -139,6 +168,15 @@
 
     .no-outline {
         outline: none;
+    }
+
+    .OutlineText2 {
+        font: Tahoma, Geneva, sans-serif;
+        font-size: 64px;
+        color: saddlebrown;
+        text-shadow:
+        /* Outline */
+        -1px -1px 0 #8b4513, 1px -1px 0 #8b4513, -1px 1px 0 #8b4513, 1px 1px 0 #8b4513, -2px 0 0 #8b4513, 2px 0 0 #8b4513, 0 2px 0 #8b4513, 0 -2px 0 #8b4513; /* Terminate with a semi-colon */
     }
 
     .like-button {
@@ -194,6 +232,7 @@
         background-color: #C4A484;
         padding: 3em;
     }
+
     @font-face {
         font-family: 'alluraregular';
         src: url('9orpnysqps4zjuapjaixptrrga-webfont.woff2') format('woff2'), url('9orpnysqps4zjuapjaixptrrga-webfont.woff') format('woff');
@@ -210,7 +249,11 @@
         background: var(--right-bg-color);
     }
 </style>
-
+<script>
+    function noEmail() {
+            alert('You need to add an email to your profile to list a textbook')
+    };
+</script>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="{% static 'BookExchange/style.css' %}">
@@ -246,48 +289,41 @@
                 {% endif %}
 
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/sell/">Sell a Textbook</a>
-                </li>
+                    {% if user.profile.email == "" %}
+                        <li class="nav-item" onclick="noEmail();">
+                            <a class="nav-link" href="/userprofile/{{ user.username }}">List a Textbook</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sell/">List a Textbook</a>
+                        </li>
+                    {% endif %}
+
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">List a Textbook</a>
                 </li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/list/">Buy a Textbook</a>
+                    <a class="nav-link" href="/list/">Browse Textbooks</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+                    <a class="nav-link" href="{% provider_login_url 'google' %}">Browse Textbooks</a>
                 </li>
                 {% endif %}
-
-
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="/professors/">Professors</a>
-                </li> -->
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% provider_login_url 'google' %}">Profile</a>
-                </li>
-                {% endif %}
-
 
             </ul>
         </div>
-        <div class="navbar-nav navbar-right">
+        <a class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <a class="navbar-brand" href="/favorites">
                     <div class="logo-image">
                         <img src='https://www.citypng.com/public/uploads/preview/heart-black-button-icon-transparent-background-11639591554azr8yhqyje.png' class="img-fluid">
+
                     </div>
                 </a>
                 {% else %}
@@ -298,7 +334,21 @@
                 </a>
                 {% endif %}
             </ul>
-        </div>
+        </a>
+        <a class="navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <a class="buy-button4" href="/userprofile/{{ user.username }}">
+                    {{ user.username }}'s Profile
+                </a>
+                {% else %}
+                <a class="buy-button4" href="{% provider_login_url 'google' %}">
+                    Profile
+                </a>
+                {% endif %}
+            </ul>
+        </a>
+
         <div class="navbar-nav navbar-right">
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
@@ -319,8 +369,8 @@
 <div id="backgroundimage">
     <center>
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <div class="OutlineText">
-            <h1 class="handwritten" style=font-size:250%;color:white>Textbook Exchange </h1>
+        <div class="OutlineText2">
+            <h1 class="handwritten" style=font-size:300%;color:white>Hoos Reading </h1>
         </div>
     </center>
 </div>
@@ -331,21 +381,41 @@
             <div class="box">
                 <div class="icon"><i class="fa fa-money" aria-hidden="true"></i></div>
                 <div class="content">
-                    <h3> <a href="/sell/">Sell a Textbook</a></h3>
-                    <p>Make money today by selling your old textbooks to other students!</p>
+
+                    {% if user.is_authenticated %}
+                    {% if user.profile.email == "" %}
+                        <h3 onclick="noEmail();"> <a href="/userprofile/{{ user.username }}">List a Textbook</a></h3>
+                    {% else %}
+                        <h3><a href="/sell/">List a Textbook</a></h3>
+                    {% endif %}
+                    {% else %}
+                        <h3><a href="{% provider_login_url 'google' %}">List a Textbook</a></h3>
+                    {% endif %}
+
+                    <p>Make money today by listing your old textbooks to other students!</p>
                 </div>
             </div>
             <div class="box">
                 <div class="icon"><i class="fa fa-book" aria-hidden="true"></i></div>
                 <div class="content">
-                    <h3><a href="/list/">Buy a Textbook</a></h3>
+                    {% if user.is_authenticated %}
+                    <h3><a href="/list/">Browse Textbooks</a></h3>
+                    {% else %}
+                    <h3><a href="{% provider_login_url 'google' %}">Browse Textbooks</a></h3>
+                    {% endif %}
+                    
                     <p>Browse the beautiful selection of used textbooks students have listed!</p>
                 </div>
             </div>
             <div class="box">
                 <div class="icon"><i class="fa fa-user" aria-hidden="true"></i></div>
                 <div class="content">
+                    {% if user.is_authenticated %}
                     <h3><a href="/userprofile/{{ user.username }}">Edit your Profile</a></h3>
+                    {% else %}
+                    <h3><a href="{% provider_login_url 'google' %}">Edit your Profile</a></h3>
+                    {% endif %}
+                    
                     <p>Edit your user profile to ensure up to date transaction information!</p>
                 </div>
             </div>
@@ -382,7 +452,7 @@
                     Price: <input readonly type="text" name="price" value="{{textbook.price}}" /> <br />
                     Course: <input readonly type="text" name="text" value="{{textbook.course}}" /><br />
                     Instructor: <input readonly type="text" name="text" value="{{textbook.instructor}}" /><br />
-                    Seller: <input readonly type="text" name="creator" value="{{textbook.creator}}" /> 
+                    Seller: <input readonly type="text" name="creator" value="{{textbook.creator}}" />
                 </div>
                 <div>
                     {% if textbook in user.favorites.all %}
@@ -392,11 +462,8 @@
                     {% endif %}
 
                 </div>
-                <div class="buy-button">
-                    <input type="button" onclick=location.href="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
-
-
-                    </input>
+                <div>
+                    <input type="button" class="buy-button" onclick=location.href ="/userprofile/{{ textbook.creator.url }}{{ textbook.creator }}" value="View Seller Profile" />
                 </div>
             </div>
         </form>
@@ -408,14 +475,14 @@
 <div id="BottomImage">
     <center>
         <br /><br /><br /><br /><br /><br />
-            <h1 class="handwritten" style=font-size:50px;color:white>The one stop destination for buying and selling textbooks </h1>
-            <form action="/list/">
-                {%csrf_token %}
-                <h1 class="handwritten" style=font-size:20px;color:MediumSeaGreen>
-                    <br />
-                    <input type="submit" value="View All">
-                </h1>
-            </form>
+        <h1 class="handwritten" style=font-size:50px;color:white>The one stop destination for buying and selling textbooks </h1>
+        <form action="/list/">
+            {%csrf_token %}
+            <h1 style=font-size:20px;color:MediumSeaGreen>
+                <br />
+                <input type="submit" class="buy-button2" value="View All" />
+            </h1>
+        </form>
     </center>
 </div>
 

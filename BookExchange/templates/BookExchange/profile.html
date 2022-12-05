@@ -14,12 +14,6 @@
 
 <!doctype html>
 
-	{% if user.is_authenticated %}
-<h5>     Welcome, You are logged in as {{ user.username }}</h5>
-
-	{% else %}
-
-	{% endif %}
 {% block content %}
 <body>
 	<html lang="en">
@@ -46,29 +40,36 @@
 					{% endif %}
 
 					{% if user.is_authenticated %}
-					<li class="nav-item">
-						<a class="nav-link" href="/sell/">Sell a Textbook</a>
+					{% if user.profile.email == "" %}
+					<li class="nav-item" onclick="noEmail();">
+						<a class="nav-link" href="/userprofile/{{ user.username }}">List a Textbook</a>
 					</li>
 					{% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="{% provider_login_url 'google' %}">Sell a Textbook</a>
+						<a class="nav-link" href="/sell/">List a Textbook</a>
+					</li>
+					{% endif %}
+
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% provider_login_url 'google' %}">List a Textbook</a>
 					</li>
 					{% endif %}
 
 					{% if user.is_authenticated %}
 					<li class="nav-item">
-						<a class="nav-link" href="/list/">Buy a Textbook</a>
+						<a class="nav-link" href="/list/">Browse Textbooks</a>
 					</li>
 					{% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="{% provider_login_url 'google' %}">Buy a Textbook</a>
+						<a class="nav-link" href="{% provider_login_url 'google' %}">Browse Textbooks</a>
 					</li>
 					{% endif %}
 
 
 					<!-- <li class="nav-item">
-						<a class="nav-link" href="/professors/">Professors</a>
-					</li> -->
+		<a class="nav-link" href="/professors/">Professors</a>
+	</li> -->
 					{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link" href="/userprofile/{{ user.username }}">Profile</a>
@@ -99,6 +100,19 @@
 					{% endif %}
 				</ul>
 			</div>
+			<a class="navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+					<a class="buy-button4" href="/userprofile/{{ user.username }}">
+						{{ user.username }}'s Profile
+					</a>
+					{% else %}
+					<a class="buy-button4" href="{% provider_login_url 'google' %}">
+						Profile
+					</a>
+					{% endif %}
+				</ul>
+			</a>
 			<div class="navbar-nav navbar-right">
 				<ul class="nav navbar-nav navbar-right">
 					{% if user.is_authenticated %}
@@ -118,7 +132,7 @@
 	<br>
 	<div>
 		<div class="content-section" style"position:relative; left:300px; top:200px;">
-			<form method="POST">
+			<form method="POST" id="myForm">
 				{% csrf_token %}
 				{{ form }}
 				<style>
@@ -128,13 +142,48 @@
 						background: #d2dce1;
 						padding: 4vh 3vh;
 					}
+                    .buy-button4 {
+                        background-color: #C4A484;
+                        border: none;
+                        padding: .5em;
+                        border-radius: 5px;
+                        color: black;
+                        width: 100%;
+                        text-align: center;
+                        text-decoration: none;
+                    }
+
+                        .buy-button4:hover {
+                            color: white;
+                        }
 				</style>
 				<br></br><br></br>
 				<input type="submit" id="button" class="button_active" value="Save" onclick="myFunction();" />
 				<script>
 					function myFunction() {
-						alert("Your Profile has been saved");
+						let allAreFilled = true;
+						document.getElementById("myForm").querySelectorAll("[required]").forEach(function (i) {
+							if (!allAreFilled) return;
+							if (i.type === "radio") {
+								let radioValueCheck = false;
+								document.getElementById("myForm").querySelectorAll(`[name=${i.name}]`).forEach(function (r) {
+									if (r.checked) radioValueCheck = true;
+								})
+								allAreFilled = radioValueCheck;
+								return;
+							}
+							if (!i.value) { allAreFilled = false; return; }
+						})
+						if (!allAreFilled) {
+						}
+						else {
+							alert('Your profile has been saved')
+						}
+					
 					};
+                    function noEmail() {
+                        alert('You need to add an email to your profile to list a textbook')
+                    };
 				</script>
 			</form>
 			<a href="/userprofile/{{ user.username }}"><input type="submit" class="button_active" value="Exit"></a>
